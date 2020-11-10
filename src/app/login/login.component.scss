@@ -1,0 +1,51 @@
+::ng-deep   body {
+    
+    background-color: #efefef;
+
+}
+.pt-50{ padding-top: 60px;}
+mat-card{ overflow: hidden;
+
+.login-card {
+   border-radius:0 4px 4px 0;}
+.text-ex-larg{    font-size: 50px;
+}
+mat-card-title {
+       font-size: 19px;
+       color: #6d6d6d;
+       padding-top: 5px;
+       text-align: center;
+}
+.visit-link{    position: absolute;
+right: 0;
+left: 0;
+margin: 0 auto;
+color: #c9edfd;
+font-weight: 300;
+bottom: 30px;
+font-size: 15px;
+a{
+color: #c9edfd;
+font-weight: 300;
+}}
+}
+ @media(min-width:1024px){
+    .col-lg-10{    width: 850px;
+        flex: none;
+        max-width: none;}
+
+ }
+ @media (min-width: 768px){
+.logo{ padding-top: 100px;}
+}
+
+@media(max-width:767px){
+    ::ng-deep body {
+    
+        background-color: #00587f;
+    
+}
+.login-card {
+    border-radius:4px !important;}
+.bg-theme{     box-shadow: none;}
+}

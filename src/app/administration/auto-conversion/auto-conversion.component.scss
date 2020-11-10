@@ -1,0 +1,48 @@
+
+
+::ng-deep .prelist-item{ margin-top: 0 !important; padding-top: 0;
+    .mat-list-item{ padding-top:10px !important; padding-bottom:10px !important; height: auto !important;
+        .mat-list-item-content{display: block !important;
+            .card{
+                border: 1px solid #00587f;    margin-top: 10px;
+            .card-header {
+                padding: 6px 10px;
+        }
+        .card-body{    padding: 12px;
+            min-width: 346px;}
+    }
+}
+    
+    mat-checkbox{
+        .mat-checkbox-layout{ margin-bottom: 0 !important;}
+    }
+}
+.mat-radio-button{ display: block;}
+}
+.card:after,
+.card:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 100%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+
+/* this border color controlls the color of the triangle (what looks like the fill of the triangle) */
+.card:after {
+    top: -18px;
+    border-color: transparent transparent #ffffff #f8f8f800;
+    border-width: 9px;
+    left: 18px;
+}
+
+/* this border color controlls the outside, thin border */
+.card:before {
+    top: -19px;
+    border-color: transparent transparent #00587f #00587f03;
+    border-width: 9px;
+    left: 18px;
+}

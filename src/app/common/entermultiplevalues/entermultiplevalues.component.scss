@@ -1,0 +1,40 @@
+::ng-deep .mat-step-icon{ display: none;}
+
+:host {
+    ::ng-deep.mat-pseudo-checkbox{
+      display: none !important;
+    }
+}
+.mat-dialog-content{ max-height: 75vh;}
+.duallist{
+  border: 2px solid #ccc;
+  min-height: 180px;
+  max-height: 180px;
+  overflow-y: auto; outline: none; background: #fff;
+
+  .mat-list-option {
+    display: block;
+    height: auto;
+    -webkit-tap-highlight-color: transparent;
+    width: 100%;
+    padding: 0;
+    line-height: 28px;
+    font-size: 14px;
+}
+ 
+}
+.filtericon{     position: absolute; color:#ff60006e;
+  right: 3px;
+  top: 7px;}
+.blue-input{background: #d6f4ff;
+  border-color: #9fc9d9;
+}
+.blue-input:focus{
+ box-shadow: none !important;
+}
+:root{
+  .spinner-position{
+    .min-vh-1002{ min-height: 215px !important;}
+  }
+
+}

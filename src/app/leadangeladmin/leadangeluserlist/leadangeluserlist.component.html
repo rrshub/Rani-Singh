@@ -1,0 +1,83 @@
+<mat-toolbar class="toolbarheader">
+   <h4>LeadAngel User List</h4>
+    <span class="spacer"></span>
+   <button   mat-raised-button color="primary" (click)="Opendailogbox('New_Leadangel_User')">New LeadAngel User</button>
+   <!--div class="comman-filter"><input type="text" (keyup)="applyFiltr($event.target.value)"> <mat-icon>filter_alt</mat-icon> </div-->
+   <app-data-table-filter 
+   [tableData]="tableData" 
+   (filteredData)=tableFilterRec($event) 
+   [completed]="isCompleted"
+   ></app-data-table-filter>
+ 
+  </mat-toolbar>
+  <div class="container-fluid mt-3 m-b3">
+    <app-data-table 
+    [tableData]    = "tableData"
+    [columnHeader] = "columnHeader"
+    (isUpdated)    =  dataTableRec($event)
+  ></app-data-table>
+  </div>
+<!--div class="p-2">
+        <table mat-table [dataSource]="dataSource" matSort class="table-striped">
+
+          <ng-container matColumnDef="rowNumber">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>S.No.</th>
+            <td mat-cell *matCellDef="let element"> {{element.rowNumber}} </td>
+          </ng-container>
+          
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.firstName|titlecase}} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.lastName|titlecase}} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="emailAddress">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Email Address </th>
+            <td mat-cell *matCellDef="let element"> {{element.emailAddress}} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="role">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
+            <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="userstatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell *matCellDef="let element"> <span class="stats-pill status-{{element.userstatus|lowercase}}"> {{element.userstatus|titlecase}} </span> </td>
+          </ng-container>
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef > Action</th>
+              <td mat-cell *matCellDef="let item, let element">
+                <button color="orange" mat-raised-button [disabled]="element.rowNumber==1" [matMenuTriggerFor]="action">Action <mat-icon>arrow_drop_down</mat-icon> </button>
+                <mat-menu #action="matMenu">
+                  <button mat-menu-item (click)="Opendailogbox(item,'Edit_Leadangel_User')">
+                    <mat-icon color="successtext">edit</mat-icon>
+                    <span>Edit</span>
+                  </button>
+               
+                  <button mat-menu-item (click)="Opendailogbox(item,'ResetpassLeadangel_User')">
+                    <mat-icon color="primary">replay</mat-icon>
+                    <span>Reset Password</span>
+                  </button>
+                
+                  <button mat-menu-item (click)="Opendailogbox(item,'Delete_User')">
+                    <mat-icon color="warn">delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+          <mat-paginator [pageSizeOptions]="[20,50,100]" class="mat-paginator-sticky" showFirstLastButtons></mat-paginator-->
+
+     
+ 
+ 

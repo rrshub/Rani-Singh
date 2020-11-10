@@ -1,0 +1,67 @@
+<mat-toolbar class="headtoolbar mb-3">
+
+    <h4 class="pl-2">Net New Accounts Report</h4>
+</mat-toolbar>
+
+<div class="container-fluid mb-3">
+    <div class="row">
+        <div class="col-md-6">
+            <mat-card>
+                <mat-card-header class="mat-card-header">
+                    <mat-icon class="mr-2">assignment</mat-icon>
+                    Net New Accounts in Last 6 Months
+                </mat-card-header>
+                <mat-card-content class="dashboard-inner-card">  
+                    <div style="display: block;">
+                        <canvas baseChart 
+                          [datasets]="barChartData"
+                          [labels]="barChartLabels"
+                          [options]="barChartOptions"
+                          [plugins]="barChartPlugins"
+                          [legend]="barChartLegend"
+                          [colors]="barChartColors"
+                          [chartType]="barChartType">
+                        </canvas>
+                    </div>
+                </mat-card-content>  
+            </mat-card>
+        </div>
+        <div class=" col-md-6">
+            <mat-card>
+                <mat-card-header class="mat-card-header">
+                    <mat-icon class="mr-2">library_books</mat-icon>
+                    Net New Accounts
+                </mat-card-header>
+                <mat-card-content class="dashboard-inner-card" > 
+                    <div class="text-center mb-4" >
+                        <div class="number-card">
+                            14
+                        </div>
+                        <div>
+                            Total Net New Accounts
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="pb-2">Download Net New Accounts Report</div>
+                    <button mat-raised-button color="primary">
+                        <mat-icon class="mr-2">cloud_download  </mat-icon>
+                        Download
+                    </button>
+                    </div> 
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mb-3">
+    <div class="row">
+        <div class="col-md-12">
+            <mat-toolbar class="toolbarheader">
+                <div class="comman-filter ml-auto">
+                    <input type="text"> <mat-icon>filter_alt</mat-icon> 
+                </div>
+            </mat-toolbar>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,925 @@
+<div class="canvas-panel" *ngIf = "this.actiontype == 0">
+    <div class="tab-slider--nav">
+        <ul class="tab-slider--tabs">
+            <div *ngFor="let item of tabDeatil;let i = index">
+                <li class="tab-slider--trigger" 
+                [class.active]="this.viewMode == item.tab" 
+                (click)="this.viewMode = item.tab">
+                <i class="material-icons {{item.className}}">{{item.iconName}}</i>{{item.tabName}}
+            </li>
+            </div>
+        </ul>
+        <!-- <button *ngIf="this.viewMode == 'tab2'" (click)="action.isVisibleA = !action.isVisibleA" mat-icon-button
+            class="collapse-btn mr-2">
+            <mat-icon title="Collapse Attribute Panel" *ngIf="action.isVisibleA">menu</mat-icon>
+            <mat-icon title="Expand Attribute Panel" *ngIf="!action.isVisibleA">clear</mat-icon>
+        </button> -->
+    </div>
+    <div class="tab-slider--container" [ngSwitch]="this.viewMode">
+        <div id="tab1" class="tab-slider--body" *ngSwitchCase="'tab1'">
+            <mat-toolbar class="subheadtoolbar">
+                <mat-icon class="mat-height-22 theme-text-color">recent_actors</mat-icon>
+                <h4 class="pl-2">Title here</h4>
+            </mat-toolbar>
+            <div class="canvas-panel-box">
+                <as-split direction="vertical" [gutterSize]="0">
+                    <as-split-area size="100" class="canvas-droppanel position-relative">
+                        <div class="container-fluid pt-3 pb-3">
+                            <mat-grid-list [cols]="breakpoint" rowHeight="130" [gutterSize]="15" class="grid-tile"
+                                (window:resize)="onResize($event)">
+                                <mat-grid-tile>
+                                    <mat-grid-tile-header>
+                                        <mat-icon class="mr-2">calendar_today</mat-icon> Created Date
+                                    </mat-grid-tile-header>
+                                    <mat-card class="w-100"><mat-card-content>Jun 25, 2020, 1:18:34 PM UTC</mat-card-content></mat-card>
+                                </mat-grid-tile>
+                                <mat-grid-tile>
+                                    <mat-grid-tile-header>
+                                        <mat-icon class="mr-2">update</mat-icon> Last Updated
+                                    </mat-grid-tile-header>
+                                    <mat-card class="w-100"><mat-card-content>Jul 7, 2020, 3:30:39 PM UTC</mat-card-content></mat-card>
+                                </mat-grid-tile>
+
+
+                                <mat-grid-tile>
+                                    <mat-grid-tile-header>
+                                        <mat-icon class="mr-2">person</mat-icon> Last Updated By
+                                    </mat-grid-tile-header>
+                                    <mat-card class="w-100"><mat-card-content>dhirendra@arosys.com</mat-card-content></mat-card>
+                                </mat-grid-tile>
+                                <mat-grid-tile [colspan]="breakpoint" [rowspan]="1">
+                                    <mat-grid-tile-header>
+                                        <mat-icon class="mr-2">article</mat-icon> Description<span
+                                            class="example-spacer"></span> <button type="button" mat-icon-button
+                                            title="Edit Description">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+                                    </mat-grid-tile-header>
+                                    <mat-card class="w-100"><mat-card-content>text here</mat-card-content>  </mat-card>
+
+                                </mat-grid-tile>
+                                <mat-grid-tile [colspan]="breakpoint" [rowspan]="1">
+                                    <mat-grid-tile-header class="bg-white border-bottom"><img
+                                            src="assets/img/marketo.jpg" width="109"></mat-grid-tile-header>
+                                    <mat-card class="w-100 mar-bg">
+                                        <mat-card-content>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <mat-checkbox>Sync With Marketo </mat-checkbox>
+                                                    <button mat-raised-button color="primary" class="ml-3">Sync Now</button>
+                                                </div>
+                                                <div class="col-md-7 text-right">
+                                                    <mat-icon class="vertical-mid">av_timer</mat-icon> Latest Sync Date: UTC
+                                                </div>
+                                            </div>
+                                        </mat-card-content>
+                                      
+
+                                    </mat-card>
+                                </mat-grid-tile>
+                            </mat-grid-list>
+
+                        </div>
+
+
+                    </as-split-area>
+                </as-split>
+
+            </div>
+
+
+
+        </div>
+        <!--Darft tab -->
+        <div id="tab2" class="tab-slider--body" *ngSwitchCase="'tab2'">
+
+            <mat-toolbar class="subheadtoolbar">
+                <button mat-stroked-button [matMenuTriggerFor]="filtermenu">Default Filter <mat-icon>filter_list
+                    </mat-icon></button>
+
+                <mat-menu #filtermenu="matMenu">
+                    <button mat-menu-item>Default (1 AND 2 AND 3
+                        ...)</button>
+                    <button mat-menu-item (click)="CanvasFilter('Custom','source')">Custom Filter</button>
+                </mat-menu>
+                <input type="text" class="form-control w-auto mr-2" *ngIf="this.filterTypeText==='Custom'">
+                <button mat-stroked-button (click)="allExpandState = false">Collapse All <mat-icon>unfold_more
+                    </mat-icon></button>
+                <button mat-stroked-button (click)="allExpandState = true">Expand All <mat-icon>unfold_less</mat-icon>
+                </button>
+                <button mat-stroked-button *ngIf="this.treeMenuModelData.IsObjectEdited == 1">Delete Darft <mat-icon
+                        class="text-danger text-21">delete</mat-icon></button>
+                <span class="example-spacer"></span>
+                <mat-icon class="save-info">save</mat-icon>
+                <!-- <span class="save-time">{{this.autoSave | date:'medium' :'UTC'}} UTC</span> -->
+
+                <span class="save-time" *ngIf="this.autoSave!=='No Changes'&& this.autoSave!=='Saving...'"
+                    id="autoSave">{{this.autoSave | date:'medium' :'UTC'}} UTC</span>
+                <span class="save-time" *ngIf="this.autoSave==='No Changes'|| this.autoSave==='Saving...'"
+                    id="autoSave">{{this.autoSave}}</span>
+
+            </mat-toolbar>
+
+            <div class="canvas-panel-box">
+
+                <as-split direction="horizontal" [gutterSize]="3" class="middle-scroll-spliter" [restrictMove]="true">
+                    <as-split-area [order]="2" size="75" class="canvas-droppanel scrollbar-hidden position-relative">
+
+                        <div class='dragboxemptypanel mt-3' *ngIf="this.done.length===0">
+                            <img src="assets/icons/add-pluse.png" alt="" width="80">
+                            <h4>ADD FIELDS</h4>
+                            <p>Simply Drag and Drop items from right</p>
+                        </div>
+                        <form [formGroup]="addDraftBlock">
+                            <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done"
+                                [cdkDropListConnectedTo]="[todoList]" class="fieldset" dropListScroller
+                                cdkDragBoundary=".example-boundary" (cdkDropListDropped)="drop($event)">
+
+                                <div *ngFor="let item of t.controls;let i = index" cdkDrag>
+                                    <div [formGroup]="item">
+                                        <div *cdkDragPlaceholder class="field-placeholder"></div>
+                                        <div class="dragpanel">
+
+                                            <button class="clearpanel-btn" (click)="onDeleteItem(item.value,ID)"
+                                                mat-button type="button">
+                                                <mat-icon>clear</mat-icon>
+                                            </button>
+
+                                            <mat-expansion-panel *ngIf="item.value.TypeVal==='STRING'"
+                                                [expanded]="allExpandState">
+
+                                                <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
+                                                    <mat-panel-title>
+                                                        <span class="text-attr-title">{{item.value.TypeVal}}</span>
+                                                        <span class="number-text">{{i+1}}</span>
+                                                    </mat-panel-title>
+                                                </mat-expansion-panel-header>
+                                                <div class="container-fluid">
+                                                    <div class="form-group pt-3 row">
+                                                        <label for=""
+                                                            class="col-md-3 col-form-label text-right">{{item.value.BlockName}}</label>
+
+                                                        <div class="col-md-4">
+                                                            <select formControlName="DropDown" id="drpString_{{i}}"
+                                                                (change)="selectInput(item.value,i,'dropDown')"
+                                                                class="form-control" name="seldropDown"
+                                                                [ngClass]="{ 'is-invalid': item.controls.DropDown.errors}">
+                                                                <option disabled value="">Select any condition</option>
+                                                                <option value="contains">contains</option>
+                                                                <option value="does not contain">does not contain
+                                                                </option>
+                                                                <option value="starts with">starts with</option>
+                                                                <option value="does not start with">does not start with
+                                                                </option>
+                                                                <option value="is empty">is empty</option>
+                                                                <option value="is not empty">is not empty</option>
+                                                                <option value="in">in</option>
+                                                                <option value="not in">not in</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="addinpanel"><input type="text"
+                                                                    autocomplete="off"
+                                                                    [readonly]="item.value.DropDown==='is empty' || item.value.DropDown==='is not empty'"
+                                                                    formControlName="TextBox1" id="txtString_{{i}}"
+                                                                    class="form-control"
+                                                                    (focusout)="selectInput(item.value,i,'textBox')"
+                                                                    input-check
+                                                                    [ngClass]="{ 'is-invalid': item.controls.TextBox1.errors && (item.value.DropDown !== 'is empty' && item.value.DropDown !== 'is not empty')}">
+                                                                <button (click)="entermultiplevalues()" mat-icon-button
+                                                                    *ngIf="item.value.DropDown==='in' || item.value.DropDown==='not in'"
+                                                                    color="primary">
+                                                                    <mat-icon>add_box</mat-icon>
+                                                                </button>
+                                                                <mat-icon class="infotext" *ngIf="item.value.DropDown==='in' || item.value.DropDown==='not in'">info</mat-icon>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </mat-expansion-panel>
+
+                                            <mat-expansion-panel *ngIf="item.value.TypeVal==='NUMBER'"
+                                                [expanded]="allExpandState">
+
+                                                <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
+                                                    <mat-panel-title>
+                                                        <span class="text-attr-title">{{item.value.TypeVal}}</span>
+                                                        <span class="number-text">{{i+1}}</span>
+                                                    </mat-panel-title>
+                                                </mat-expansion-panel-header>
+                                                <div class="container-fluid">
+                                                    <div class="form-group pt-3 row">
+                                                        <label for=""
+                                                            class="col-md-3 col-form-label text-right">{{item.value.BlockName}}</label>
+
+                                                        <div class="col-md-4">
+                                                            <select formControlName="DropDown" id="drpNumber_{{i}}"
+                                                                (change)="selectInput(item.value,i,'dropDown')"
+                                                                class="form-control" name="seldropDown"
+                                                                [ngClass]="{ 'is-invalid': item.controls.DropDown.errors}">
+                                                                <option disabled value="">Select any condition</option>
+                                                                <option value="is empty">is empty</option>
+                                                                <option value="is not empty">is not empty</option>
+                                                                <option value="in">in</option>
+                                                                <option value="not in">not in</option>
+                                                                <option value="is greater than">is greater than</option>
+                                                                <option value="is smaller than">is smaller than</option>
+                                                                <option value="between">between</option>
+                                                                <option value="is at least">is at least</option>
+                                                                <option value="is at most">is at most</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <input type="number" autocomplete="off"
+                                                                formControlName="TextBox1" id="txtNumber_{{i}}"
+                                                                class="form-control"
+                                                                [readonly]="item.value.DropDown==='is empty' || item.value.DropDown==='is not empty'"
+                                                                (focusout)="selectInput(item.value,i,'textBox')"
+                                                                input-check
+                                                                [ngClass]="{ 'is-invalid': item.controls.TextBox1.errors && (item.value.DropDown !== 'is empty' && item.value.DropDown !== 'is not empty')}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </mat-expansion-panel>
+
+                                            <mat-expansion-panel *ngIf="item.value.TypeVal==='DATETIME'"
+                                                [expanded]="allExpandState">
+
+                                                <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
+                                                    <mat-panel-title>
+                                                        <span class="text-attr-title">{{item.value.TypeVal}}</span>
+                                                        <span class="number-text">{{i+1}}</span>
+                                                    </mat-panel-title>
+                                                </mat-expansion-panel-header>
+                                                <div class="container-fluid">
+                                                    <div class="form-group pt-3 row">
+                                                        <label for=""
+                                                            class="col-md-3 col-form-label text-right">{{item.value.BlockName}}</label>
+
+                                                        <div class="col-md-4">
+                                                            <select formControlName="DropDown" id="drpDatetime_{{i}}"
+                                                                (change)="selectInput(item.value,i,'dropDown')"
+                                                                class="form-control" name="seldropDown"
+                                                                [ngClass]="{ 'is-invalid': item.controls.DropDown.errors}">
+                                                                <option disabled value="">Select any condition</option>
+                                                                <option value="before">before</option>
+                                                                <option value="after">after</option>
+                                                                <option value="on or before">on or before</option>
+                                                                <option value="on or after">on or after</option>
+                                                                <option value="in past">In Past (days)</option>
+                                                                <option value="in future">In Future (days)</option>
+                                                                <option value="between">between</option>
+                                                                <option value="is">is</option>
+                                                                <option value="is not">is not</option>
+                                                                <option value="is empty">is empty</option>
+                                                                <option value="is not empty">is not empty</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="date-relative">
+                                                                        <input type="text" formControlName="TextBox1"
+                                                                            id="txtDatetime1_{{i}}"
+                                                                            class="form-control dateinput"
+                                                                            (dateInput)="selectInput(item.value,i,'textBox')"
+                                                                            [ngClass]="{'is-invalid': item.controls.TextBox1.errors && (item.value.DropDown !== 'is empty' && item.value.DropDown !== 'is not empty')}"
+                                                                            [matDatepicker]="from">
+                                                                        <mat-datepicker-toggle matSuffix [for]="from">
+                                                                        </mat-datepicker-toggle>
+                                                                        <mat-datepicker #from></mat-datepicker>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="date-relative"
+                                                                        *ngIf="item.value.DropDown==='between'">
+                                                                        <input type="text" formControlName="TextBox2"
+                                                                            id="txtDatetime2_{{i}}"
+                                                                            class="form-control dateinput"
+                                                                            [min]="TextBox1" [matDatepicker]="to"
+                                                                            (dateInput)="selectInput(item.value,i,'textBox')"
+                                                                            [ngClass]="{ 'is-invalid': item.controls.TextBox2.errors}">
+                                                                        <mat-datepicker-toggle matSuffix [for]="to">
+                                                                        </mat-datepicker-toggle>
+                                                                        <mat-datepicker #to></mat-datepicker>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </mat-expansion-panel>
+
+                                            <mat-expansion-panel *ngIf="item.value.TypeVal==='BOOLEAN'"
+                                                [expanded]="allExpandState">
+
+                                                <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
+                                                    <mat-panel-title>
+                                                        <span class="text-attr-title">{{item.value.TypeVal}}</span>
+                                                        <span class="number-text">{{i+1}}</span>
+                                                    </mat-panel-title>
+                                                </mat-expansion-panel-header>
+                                                <div class="container-fluid">
+                                                    <div class="form-group pt-3 row">
+                                                        <label for=""
+                                                            class="col-md-3 col-form-label text-right">{{item.value.BlockName}}</label>
+
+                                                        <div class="col-md-3">
+                                                            <select formControlName="DropDown"
+                                                                (change)="selectInput(item.value,i,'dropDown')"
+                                                                id="drpBoolean_{{i}}" class="form-control"
+                                                                name="seldropDown"
+                                                                [ngClass]="{ 'is-invalid': item.controls.DropDown.errors}">
+                                                                <option disabled value="">Select any condition</option>
+                                                                <option value="is">is</option>
+                                                                <option value="is not">is not</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <select formControlName="TextBox1" id="txtBoolean_{{i}}"
+                                                                class="form-control" name="seldropDown"
+                                                                (change)="selectInput(item.value,i,'textBox')"
+                                                                [ngClass]="{ 'is-invalid': item.controls.TextBox1.errors}">
+                                                                <option disabled value="">Select any condition</option>
+                                                                <option value="true">True</option>
+                                                                <option value="false">False</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </mat-expansion-panel>
+
+                                            <mat-expansion-panel *ngIf="item.value.TypeVal==='smartINOnlyString'"
+                                                [expanded]="allExpandState">
+
+                                                <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
+                                                    <mat-panel-title>
+                                                        <span class="text-attr-title">{{item.value.TypeVal}}</span>
+                                                        <span class="number-text">{{i+1}}</span>
+                                                    </mat-panel-title>
+                                                </mat-expansion-panel-header>
+                                                <div class="container-fluid">
+                                                    <div class="form-group pt-3 row">
+                                                        <label for=""
+                                                            class="col-md-3 col-form-label text-right">{{item.value.BlockName}}</label>
+
+                                                        <div class="col-md-3">
+                                                            <select formControlName="DropDown"
+                                                                (change)="selectInput(item.value,i,'dropDown')"
+                                                                id="drpBoolean_{{i}}" class="form-control"
+                                                                name="seldropDown"
+                                                                [ngClass]="{ 'is-invalid': item.controls.DropDown.errors}">
+                                                                <option disabled value="">Select any condition</option>
+                                                                <option value="in">In</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="addinpanel"><input type="text"
+                                                                    autocomplete="off" formControlName="TextBox1"
+                                                                    id="txtString_{{i}}" class="form-control"
+                                                                    input-check
+                                                                    [ngClass]="{'is-invalid': item.controls.TextBox1.errors}">
+                                                                <button (click)="entermultiplevalues()" mat-icon-button
+                                                                    color="primary">
+                                                                    <mat-icon>add_box</mat-icon>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </mat-expansion-panel>
+
+                                            <mat-expansion-panel *ngIf="item.value.TypeVal==='MENUDATA'"
+                                                [expanded]="allExpandState">
+
+                                                <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
+                                                    <mat-panel-title>
+                                                        <span class="text-attr-title">{{item.value.TypeVal}}</span>
+                                                        <span class="number-text">{{i+1}}</span>
+                                                    </mat-panel-title>
+                                                </mat-expansion-panel-header>
+                                                <div class="container-fluid">
+                                                    <div class="form-group pt-3 row">
+                                                        <label for=""
+                                                            class="col-md-3 col-form-label text-right">{{item.value.BlockName}}</label>
+
+                                                        <div class="col-md-3">
+                                                            <select formControlName="DropDown"
+                                                                (change)="selectInput(item.value,i,'dropDown')"
+                                                                id="drpBoolean_{{i}}" class="form-control"
+                                                                name="seldropDown"
+                                                                [ngClass]="{ 'is-invalid': item.controls.DropDown.errors}">
+                                                                <option selected disabled value="">Select any condition
+                                                                </option>
+                                                                <option value="is">is</option>
+                                                                <option value="is not">is not</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <select *ngIf="item.value.ObjectTypeID==1 "
+                                                                formControlName="TextBox1" id="txtBoolean_{{i}}"
+                                                                class="form-control" name="seldropDown"
+                                                                (change)="selectInput(item.value,i,'textBox')"
+                                                                [ngClass]="{ 'is-invalid': item.controls.TextBox1.errors}">
+                                                                <option disabled value="">Select any condition</option>
+                                                                <option
+                                                                    *ngFor="let item of this.attributeList.MenuDetailForLeadSegmentSalesTeam"
+                                                                    [value]="item.ObjectId">
+                                                                    {{item.SubMenuName}} </option>
+                                                            </select>
+                                                            <select *ngIf="item.value.ObjectTypeID==2 "
+                                                                formControlName="TextBox1" id="txtBoolean_{{i}}"
+                                                                class="form-control" name="seldropDown"
+                                                                (change)="selectInput(item.value,i,'textBox')"
+                                                                [ngClass]="{ 'is-invalid': item.controls.TextBox1.errors}">
+                                                                <option disabled value="">Select any condition</option>
+                                                                <option
+                                                                    *ngFor="let item of this.attributeList.MenuDetailForLeadSegmentAccountStatus"
+                                                                    [value]="item.ObjectId">
+                                                                    {{item.SubMenuName}} </option>
+                                                            </select>
+                                                            <select *ngIf="item.value.ObjectTypeID==3 "
+                                                                formControlName="TextBox1" id="txtBoolean_{{i}}"
+                                                                class="form-control" name="seldropDown"
+                                                                (change)="selectInput(item.value,i,'textBox')"
+                                                                [ngClass]="{ 'is-invalid': item.controls.TextBox1.errors}">
+                                                                <option disabled value="">Select any condition</option>
+                                                                <option
+                                                                    *ngFor="let item of this.attributeList.MenuDetailForLeadSegmentAccountList"
+                                                                    [value]="item.ObjectId">
+                                                                    {{item.SubMenuName}} </option>
+                                                            </select>
+                                                            <select *ngIf="item.value.ObjectTypeID==4 "
+                                                                formControlName="TextBox1" id="txtBoolean_{{i}}"
+                                                                class="form-control" name="seldropDown"
+                                                                (change)="selectInput(item.value,i,'textBox')"
+                                                                [ngClass]="{ 'is-invalid': item.controls.TextBox1.errors}">
+                                                                <option disabled value="">Select any condition</option>
+                                                                <option
+                                                                    *ngFor="let item of this.attributeList.MenuDetailForLeadSegmentMarketSegment"
+                                                                    [value]="item.ObjectId">
+                                                                    {{item.SubMenuName}} </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </mat-expansion-panel>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </as-split-area>
+
+                    <as-split-area [order]="4" size="25" minSize="15" maxSize="28" class="rightpanel"
+                        [visible]="action.isVisibleA">
+
+                        <as-split direction="vertical" restrictMove="true" class="position-relative" [gutterSize]="0">
+                            <app-progress-spinner class="spinner-position" [mode]="ProgressSpinnermode"
+                                *ngIf="this.AttrProgressSpinner">
+                            </app-progress-spinner>
+                            <as-split-area class="overflow-hidden bg-light-blue" [size]="this.splitsizetop">
+                                <div class="list-filter">
+                                    <input type="text" class="filter" [(ngModel)]="searchString"
+                                        (keyup)="filterChanged($event)">
+                                    <mat-icon>filter_list</mat-icon>
+                                </div>
+                            </as-split-area>
+                            <as-split-area class="overflow-auto  pb-3 fiter-border-top" [size]="this.splitsizebottom">
+
+                                <mat-list class="right-nav-list" cdkDropList #todoList="cdkDropList"
+                                    cdkDropListSortingDisabled [cdkDropListData]="todo"
+                                    [cdkDropListConnectedTo]="[doneList]">
+
+                                    
+                                    <!-- <mat-list-item class="parent-mat-li"  (click)="toggle_test(i,item)" *ngIf="item.IsParent==1" title="{{item.name}}"><i class="righticon-{{item.type}}"></i>
+                                        <mat-icon>{{ item.isMenuVal}}</mat-icon> {{item.SelectionElement}}
+                                    </mat-list-item> -->
+                                    <mat-list-item title="{{item.name}}" *ngFor="let item of this.todo, let i = index"
+                                        cdkDrag (cdkDragStarted)="dragStarted(item,i)"
+                                        (cdkDragEnded)="dragEnded(item,i)"><i
+                                            class="righticon-{{item.type}}"></i>{{item.name}}
+                                    </mat-list-item>
+                                    <!-- <div *ngFor="let item of this.todo, let i = index">
+                                        <mat-list-item class="parent-mat-li" (click)="toggle_test(i,item)"
+                                            *ngIf="item.IsParent==1" title="{{item.name}}"><i
+                                                class="righticon-{{item.type}}"></i>
+                                            <mat-icon>{{ item.isMenuVal}}</mat-icon> {{item.SelectionElement}}
+                                        </mat-list-item>
+                                        <mat-list-item *ngIf="item.IsParent!==1 && item.istogglemenuVal===1"
+                                            title="{{item.name}}" cdkDrag (cdkDragStarted)="dragStarted(item,i)"
+                                            (cdkDragEnded)="dragEnded(item,i)"><i
+                                                class="righticon-{{item.type}}"></i>{{item.name}}
+                                        </mat-list-item> 
+                                    </div>-->
+                                </mat-list>
+
+                            </as-split-area>
+
+                        </as-split>
+
+
+                    </as-split-area>
+
+                </as-split>
+
+            </div>
+        </div>
+
+        <!--Approve start -->
+        <div id="tab3" class="tab-slider--body" *ngSwitchCase="'tab3'">
+            <mat-toolbar class="subheadtoolbar">
+
+                <small>Default Filter </small> <input type="text" [disabled]="true"
+                    class="form-control ml-1 w-auto mr-2">
+                <button mat-stroked-button (click)="allExpandState = false">Collapse All <mat-icon>unfold_more
+                    </mat-icon></button>
+                <button mat-stroked-button (click)="allExpandState = true">Expand All <mat-icon>unfold_less</mat-icon>
+                </button>
+                <span class="example-spacer"></span>
+                <mat-icon class="save-info">save</mat-icon>
+                <!-- <span class="save-time">{{this.autoSave | date:'medium' :'UTC'}} UTC</span> -->
+
+            </mat-toolbar>
+            <div class="canvas-panel-box">
+
+                <as-split direction="horizontal" [gutterSize]="0" class="middle-scroll-spliter">
+                    <as-split-area [order]="4" size="100" class="canvas-droppanel fieldset position-relative">
+                        <div class="dragpanel">
+
+                            <mat-expansion-panel [expanded]="allExpandState"
+                                *ngFor="let i = index,let data of this.getCanvasInfoDetail.approveblock">
+                                <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
+                                    <mat-panel-title>
+                                        <span class="text-attr-title">{{data.BlockName}}</span>
+                                        <span class="number-text">{{data.BlockSeqNumber}}</span>
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <div class="container-fluid">
+                                    <div class="form-group pt-3 row">
+                                        <label for=""
+                                            class="col-md-3 col-form-label text-right">{{data.BlockName}}</label>
+
+                                        <div class="col-md-4">
+                                            <input type="text" [value]="data.Operator" [disabled]="true"
+                                                class="form-control">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" [value]="data.op_Values" class="form-control"
+                                                [disabled]="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </mat-expansion-panel>
+
+
+
+                        </div>
+
+
+                    </as-split-area>
+
+
+                </as-split>
+
+            </div>
+
+
+        </div>
+        <!-- router tab here -->
+        <div id="tab4" class="tab-slider--body" *ngSwitchCase="'tab4'">
+            <mat-toolbar class="subheadtoolbar">
+                <button mat-stroked-button (click)="allExpandState = false">Collapse All <mat-icon>unfold_more
+                    </mat-icon></button>
+                <button mat-stroked-button (click)="allExpandState = true">Expand All <mat-icon>unfold_less</mat-icon>
+                </button>
+                <span class="example-spacer"></span>
+                <mat-icon class="save-info">save</mat-icon>
+                <span class="save-time">{{this.autoSave | date:'medium' :'UTC'}} UTC</span>
+
+            </mat-toolbar>
+            <div class="canvas-panel-box">
+
+                <as-split direction="horizontal" [gutterSize]="0" class="middle-scroll-spliter" [restrictMove]="false">
+                    <as-split-area [order]="2" size="75" class="canvas-droppanel scrollbar-hidden position-relative">
+
+                        <div class='dragboxemptypanel mt-3' *ngIf="this.assignmentblocklist.length===0">
+                            <img src="assets/icons/add-pluse.png" alt="" width="80">
+                            <h4>ADD FIELDS</h4>
+                            <p>Simply Drag and Drop items from right</p>
+                        </div>
+                        <form [formGroup]="addRouterBlock">
+                            <div class="fieldset" cdkDropList dropListScroller cdkDragBoundary=".example-boundary"
+                                id="assigndragedblock" (cdkDropListDropped)="itemDropped($event)"
+                                [cdkDropListData]="assignmentblocklist">
+                                <div *cdkDragPlaceholder class="field-placeholder"></div>
+                                <div formArrayName="assignmentBlock">
+                                <div class="dragpanel" [cdkDragData]="item" cdkDrag
+                                    *ngFor="let item of formAssignment.controls; let i = index">
+
+                                    <button class="clearpanel-btn" (click)="onDeleteItemroutrBlock(i)" mat-button
+                                        type="button">
+                                        <mat-icon>clear</mat-icon>
+                                    </button>
+
+                                    <mat-expansion-panel [expanded]="allExpandState">
+
+                                        <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
+                                            <mat-panel-title>
+                                                <span class="text-attr-title">{{item.value.BlockName}}</span>
+                                                <span class="number-text">{{i+1}}</span>
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                        <div class="container-fluid">
+                                            <h4 class=" pt-3">Routing Territory</h4>
+                                            
+                                                <mat-list role="list" class="row routingterritorylist" (cdkDropListDropped)="routingterritoryDropped($event,i)" cdkDropList id="routingterritorypanel" [cdkDropListData]="routingterritorylist">
+                                                    <div  class="dragdropempty-block" *ngIf="item.value.routerTerritoryBlock.length===0"><h4 class="text-center">Drop Routing Territory</h4></div>
+                                                    <mat-list-item class="col-md-3" role="listitem" *ngFor="let rtItem of item.value.routerTerritoryBlock; let i = index" cdkDrag [cdkDragData]="rtItem">
+                                                        <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+                                                        <div class="territolabel" >
+                                                            <label title="{{rtItem.FieldName}}">{{rtItem.FieldName}}</label>
+                                                            <button mat-icon-button color="warn" (click)="onrtDelete(item.value,i)">
+                                                                <mat-icon>cancel</mat-icon>
+                                                            </button></div>
+                                                    </mat-list-item>
+                                                  
+
+                                                </mat-list>
+                                           
+                                            <h4 class=" pt-3">Assignment </h4>
+                                            <div class="row">
+                                                <div class=" col-md-6">
+                                                    <select class=" form-control">
+                                                        <option></option>
+                                                    </select>
+                                                </div>
+                                                <div class=" col-md-6">
+                                                    <select class=" form-control">
+                                                        <option></option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12 mt-2">
+                                                    <mat-checkbox>Prefer historical sales person to account affinity
+                                                        while assigning </mat-checkbox>
+                                                </div>
+
+                                            </div>
+                                            <h4 class=" pt-2">Data Value Update (optional)</h4>
+                                            <div  class="dragrowpanel" (cdkDropListDropped)="routerLeadAttrDropped($event,i)" cdkDropList 
+                                                id="{{i}}" [cdkDropListData]="item.value.routerLeadAttributeBlock">
+                                                <div class="row position-relative" *ngFor="let laItem of item.value.routerLeadAttributeBlock; let i = index" >
+                                                    <div class="col-md-4">
+                                                        <select class=" form-control">
+                                                            <option></option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <select  class="form-control ">
+                                                            <option>Select any Action</option>
+                                                            <option  value="Set To">Set To</option>
+                                                            <option  value="Set To Account Owner">Set To Account Owner</option>
+                                                            <option  value="Set To Opportunity Owner">Set To Opportunity Owner </option>
+                                                            </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="text" class=" form-control">
+                                                    </div>
+                                                    <button mat-icon-button color="warn">
+                                                        <mat-icon>cancel</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </mat-expansion-panel>
+
+                                </div>
+                            </div>
+                            </div>
+
+                        </form>
+                    </as-split-area>
+
+                    <as-split-area [order]="3" size="25" class="rightpanel" [visible]="action.isVisibleA">
+
+                        <as-split direction="vertical" restrictMove="true" class="position-relative" [gutterSize]="0">
+
+
+                            <as-split-area class="overflow-hidden" [size]="this.splitsizetop2">
+                                <mat-list class="routerassigndragpanel" cdkDropList cdkDropListSortingDisabled
+                                    [cdkDropListData]="assignmentblock" cdkDropListConnectedTo="assigndragedblock">
+                                    <mat-list-item color="orange" cdkDrag [cdkDragData]="item"
+                                        *ngFor="let item of assignmentblock">
+                                        <mat-icon>post_add</mat-icon> Add {{item.name}}
+                                    </mat-list-item>
+                                </mat-list>
+
+                                <div class="list-filter">
+                                    <input type="text" class="filter">
+                                    <mat-icon>filter_list</mat-icon>
+                                </div>
+                            </as-split-area>
+                            <as-split-area class="overflow-auto  pb-3" [size]="this.splitsizerouterpanel">
+
+
+                                <mat-list class="right-nav-list" cdkDropList 
+                                    cdkDropListSortingDisabled [cdkDropListData]="todo"
+                                    cdkDropListConnectedTo="routingterritorypanel">
+                                    <div>
+                                        <!-- <mat-list-item class="parent-mat-li" *ngIf="item.IsParent==1"
+                                            title="{{item.name}}"><i class="righticon-{{item.type}}"></i>
+                                            <mat-icon>{{ item.isMenuVal}}</mat-icon> {{item.SelectionElement}}
+                                        </mat-list-item> -->
+                                        <mat-list-item title="{{item.name}}" *ngFor="let item of this.todo, let i = index" cdkDrag
+                                            (cdkDragStarted)="dragStarted(item,i)" (cdkDragEnded)="dragEnded(item,i)"><i
+                                                class="righticon-{{item.type}}"></i>{{item.name}}
+                                        </mat-list-item>
+                                    </div>
+                                </mat-list>
+
+                                <mat-list class="right-nav-list" cdkDropList 
+                                cdkDropListSortingDisabled [cdkDropListData]="leadAttriuteForRouter"
+                                cdkDropListConnectedTo="{{item_ids}}">
+                                    <mat-list-item *ngFor="let item of this.leadAttriuteForRouter, let i = index"
+                                        title="{{item.name}}" cdkDrag (cdkDragStarted)="dragStarted(item,i)"
+                                        (cdkDragEnded)="dragEnded(item,i)"><i
+                                            class="righticon-{{item.type}}"></i>{{item.name}}
+                                    </mat-list-item>
+                            </mat-list>
+
+                            </as-split-area>
+
+                        </as-split>
+
+
+                    </as-split-area>
+
+                </as-split>
+
+            </div>
+
+        </div>
+        <div id="tab5" class="tab-slider--body" *ngSwitchCase="'tab5'">
+            <mat-toolbar class="subheadtoolbar">
+                <button mat-stroked-button (click)="allExpandState = false">Collapse All <mat-icon>unfold_more
+                    </mat-icon></button>
+                <button mat-stroked-button (click)="allExpandState = true">Expand All <mat-icon>unfold_less</mat-icon>
+                </button>
+              
+
+                <span class="example-spacer"></span>
+                <button mat-stroked-button >Print</button>
+                <button mat-stroked-button >Download</button>
+
+            </mat-toolbar>
+            <div class="canvas-panel-box">
+
+                <as-split direction="horizontal" [gutterSize]="0" class="middle-scroll-spliter" [restrictMove]="false">
+                    <as-split-area [order]="2" size="75" class="canvas-droppanel scrollbar-hidden position-relative">
+
+                      
+                        <form >
+                            <div class="fieldset">
+                            
+                                <div class="dragpanel">
+                     <mat-expansion-panel [expanded]="allExpandState">
+
+                                        <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
+                                            <mat-panel-title>
+                                                <span class="text-attr-title">Assignment Block</span>
+                                                <span class="number-text">1</span>
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                        <div class="container-fluid">
+                                            <h4 class=" pt-3">Routing Territory</h4>
+                                            <div class=" pl-3 pr-3">
+                                                <mat-list role="list" class="row routingterritorylist" >
+                                                    
+                                                    <mat-list-item class="col-md-3" role="listitem" >
+
+                                                        <div class="territolabel" >
+                                                            <label title="{{rtItem.FieldName}}">Territory Name</label>
+                                                            </div>
+                                                    </mat-list-item>
+                                                  
+
+                                                </mat-list>
+                                            </div>
+                                            <h4 class=" pt-0">Assignment </h4>
+                                            <div class="row">
+                                                <div class=" col-md-6">
+                                                    <input class=" form-control" disabled="disabled" [readonly]="disabled">
+                                                     
+                                                </div>
+                                                <div class=" col-md-6">
+                                                    <input class=" form-control" disabled="disabled" [readonly]="disabled">
+                                                </div>
+                                                <div class="col-md-12 mt-2">
+                                                    <mat-checkbox disabled="disabled" >Prefer historical sales person to account affinity
+                                                        while assigning </mat-checkbox>
+                                                </div>
+
+                                            </div>
+                                            <h4 class=" pt-2">Data Value Update (optional)</h4>
+                                            <div  class="dragrowpanel" >
+                                                <div class="row "  >
+                                                    <div class="col-md-4">
+                                                        <input class=" form-control" disabled="disabled" [readonly]="disabled">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input class=" form-control" disabled="disabled" [readonly]="disabled">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input class=" form-control" disabled="disabled" [readonly]="disabled">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </mat-expansion-panel>
+
+                                </div>
+                            </div>
+                           
+
+                        </form>
+                    </as-split-area>
+
+                    <as-split-area [order]="3" size="25" class="rightpanel" [visible]="action.isVisibleA">
+
+                        <as-split direction="vertical" restrictMove="true" class="position-relative" [gutterSize]="0">
+
+
+                            <as-split-area class="overflow-hidden" [size]="this.splitsizetop2">
+                                <mat-list class="routerassigndragpanel" cdkDropList cdkDropListSortingDisabled
+                                    [cdkDropListData]="assignmentblock" cdkDropListConnectedTo="assigndragedblock">
+                                    <mat-list-item color="orange" cdkDrag [cdkDragData]="item"
+                                        *ngFor="let item of assignmentblock">
+                                        <mat-icon>post_add</mat-icon> Add {{item.name}}
+                                    </mat-list-item>
+                                </mat-list>
+
+                                <div class="list-filter">
+                                    <input type="text" class="filter">
+                                    <mat-icon>filter_list</mat-icon>
+                                </div>
+                            </as-split-area>
+                            <as-split-area class="overflow-auto  pb-3" [size]="this.splitsizerouterpanel">
+
+
+                                <mat-list class="right-nav-list" cdkDropList 
+                                    cdkDropListSortingDisabled [cdkDropListData]="todo"
+                                    cdkDropListConnectedTo="routingterritorypanel">
+                                    <div>
+                                        <!-- <mat-list-item class="parent-mat-li" *ngIf="item.IsParent==1"
+                                            title="{{item.name}}"><i class="righticon-{{item.type}}"></i>
+                                            <mat-icon>{{ item.isMenuVal}}</mat-icon> {{item.SelectionElement}}
+                                        </mat-list-item> -->
+                                        <mat-list-item title="{{item.name}}" *ngFor="let item of this.todo, let i = index" cdkDrag
+                                            (cdkDragStarted)="dragStarted(item,i)" (cdkDragEnded)="dragEnded(item,i)"><i
+                                                class="righticon-{{item.type}}"></i>{{item.name}}
+                                        </mat-list-item>
+                                    </div>
+                                </mat-list>
+
+                                <mat-list class="right-nav-list" cdkDropList 
+                                cdkDropListSortingDisabled [cdkDropListData]="leadAttriuteForRouter"
+                                cdkDropListConnectedTo="{{item_ids}}">
+                                    <mat-list-item *ngFor="let item of this.leadAttriuteForRouter, let i = index"
+                                        title="{{item.name}}" cdkDrag (cdkDragStarted)="dragStarted(item,i)"
+                                        (cdkDragEnded)="dragEnded(item,i)"><i
+                                            class="righticon-{{item.type}}"></i>{{item.name}}
+                                    </mat-list-item>
+                            </mat-list>
+
+                            </as-split-area>
+
+                        </as-split>
+
+
+                    </as-split-area>
+
+                </as-split>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<app-progress-spinner class="spinner-position" [mode]="ProgressSpinnermode" *ngIf="this.CanvasProgressSpinner">
+</app-progress-spinner>

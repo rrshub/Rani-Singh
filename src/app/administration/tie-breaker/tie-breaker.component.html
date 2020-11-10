@@ -1,0 +1,61 @@
+<mat-toolbar class="headtoolbar mb-3">
+
+    <h4 class="pl-2">Tie-breaker Detail</h4>
+</mat-toolbar>
+<div class="container-fluid mb-3">
+    <div class="row">
+        <div class=" col-md-8 m-auto">  
+            <mat-card>
+                <mat-card-header class="mat-card-header mb-2"> 
+                    <span> Winning Account </span>
+                    <span class="ml-auto mr-5"> Priority</span> 
+                </mat-card-header>
+                <mat-card-content *ngFor="let tribreak of this.tiebreakermodel.data" class="pb-0 pt-0 mb-2">
+                    <mat-list class="list-horizontal">
+                        <div class="row">
+                            <div class="col-5">
+                                <mat-list-item>
+                                    {{tribreak.BreakerName}}
+                                </mat-list-item>
+                            </div>
+                            <div class="col-3">
+                                <mat-list-item *ngIf="tribreak.Enable_Disable=='Enabled'; else elseDisable">
+                                    <span class="enable" >Enabled</span>
+                                </mat-list-item>
+                                <ng-template #elseDisable>
+                                    <mat-list-item >
+                                        <span class="disable" >Disabled</span>
+                                    </mat-list-item>
+                                </ng-template>
+                            </div>
+                            <div class="col-1"></div>
+                            <div class="col-3">
+                                <mat-list-item class="w-100">
+                                    <div class="form-group w-100 mb-2">
+                                    <select class="form-control form-control-sm" [disabled]="this.dropDownTestx">
+                                        <option  value="tribreak.PriorityOrder">{{tribreak.PriorityOrder}}</option>
+                                     </select>
+                                    </div>
+                                </mat-list-item>
+                            </div>
+                        </div>
+                        <mat-divider></mat-divider>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+            <div class="alert alert-warning alert-size" >
+                Please contact Lead Angel support (success@leadangel.com) for updating the tie-breaker rules.
+              </div>
+
+            
+        </div>
+        <div class="container">
+            
+        </div>
+    </div>
+</div>
+<app-progress-spinner class="spinner-position" [mode]="ProgressSpinnermode" *ngIf="this.CanvasProgressSpinner">
+</app-progress-spinner>
+        
+        
+       

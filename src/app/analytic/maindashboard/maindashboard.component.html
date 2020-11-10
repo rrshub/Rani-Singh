@@ -1,0 +1,106 @@
+<mat-toolbar class="headtoolbar mb-3">
+ <h4 class="pl-2">Main Dashboard</h4>
+</mat-toolbar>
+
+<div class="container-fluid mb-3">
+    <div class="row">
+        <div class="col-md-6">
+            <mat-card>
+                <mat-card-header class="mat-card-header">
+                    <mat-icon class="mr-2"> assignment_ind  </mat-icon>
+                    Top Lead Owners Assignment
+                </mat-card-header>
+                <mat-card-content class="dashboard-inner-card">  
+                    <div class="d-block">
+                        <div class="chart-wrapper">
+                            <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels"
+                                  [chartType]="doughnutChartType" [options]="doughnutChartOptions"
+                                  [colors]="doughnutChartColors" [legend]="doughnutChartLegend">
+                            </canvas>
+                        </div>
+                      </div>
+                      
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-md-6">
+            <mat-card>
+                <mat-card-header class="mat-card-header">
+                    <mat-icon class="mr-2">library_books  </mat-icon>
+                    Duplicate Accounts
+                </mat-card-header>
+                <mat-card-content class="dashboard-inner-card" > 
+                    <div class="text-center mb-4" >
+                        <div class="number-card">
+                            6
+                        </div>
+                        <div>
+                            of duplicate account
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="pb-2">Download duplicate account report.</div>
+                    <button mat-raised-button color="primary">
+                        <mat-icon class="mr-2">cloud_download  </mat-icon>
+                        Download
+                    </button>
+                    </div> 
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid mb-3">
+    <div class="row">
+        <div class="col-md-12">
+            <mat-card>
+                <mat-card-header class="mat-card-header">
+                    <mat-icon class="mr-2"> sort </mat-icon>
+                    Account Coverage Report
+                </mat-card-header>
+                <mat-card-content class="dashboard-inner-card">  
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-card class="analist-box">
+                                <div>
+                                    Leads Matched with account
+                                </div>
+                                <div>
+                                    336
+                                </div>
+                            </mat-card>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-card class="analist-bg">
+                                <div>
+                                    Leads without account
+                                </div>
+                                <div>
+                                    359
+                                </div> 
+                            </mat-card>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div style="display: block;">
+                                <canvas baseChart 
+                                  [datasets]="barChartData"
+                                  [labels]="barChartLabels"
+                                  [options]="barChartOptions"
+                                  [plugins]="barChartPlugins"
+                                  [legend]="barChartLegend"
+                                  [colors]="barChartColors"
+                                  [chartType]="barChartType">
+                                </canvas>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
+

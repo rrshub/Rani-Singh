@@ -1,0 +1,43 @@
+<!-- 
+<div class="container">
+  <app-data-table-filter [tableData]="dataSource" ></app-data-table-filter>
+</div> -->
+
+{{multipleActions}}
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+  <ng-container [matColumnDef]="tableData" *ngFor="let tableData of objectKeys(columnHeader)">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columnHeader[tableData]|titlecase}} </th>
+    <td mat-cell *matCellDef="let element" >
+      <div *ngIf="isLength(element[tableData])">
+        <span *ngIf="isArray(element[tableData]); else elseBlock "  >  
+          <button mat-stroked-button color="orange"  [matMenuTriggerFor]="action2">Action 
+            <mat-icon>arrow_drop_down</mat-icon> </button>
+          <mat-menu #action2="matMenu">
+            <div *ngFor="let action of element[tableData]" >
+              <button mat-menu-item (click)="Opendailogbox(element,action)" >
+                <mat-icon color="successtext">{{action}}</mat-icon>
+                <span>{{action}}</span>
+              </button>
+            </div>
+          </mat-menu>
+        </span>
+      </div>
+      <div *ngIf="!isLength(element[tableData])">
+        <span *ngIf="isArray(element[tableData]); else elseBlock">  
+          <button color="orange" mat-stroked-button color="primary" (click)="Opendailogbox(element,element[tableData])">{{element[tableData]}}  </button>
+        </span>
+      </div>
+      <ng-template #elseBlock>
+        {{element[tableData]!= 'PartnerAdmin'?element[tableData]:"Partner User" }}
+      </ng-template>
+    </td>
+
+  </ng-container>
+  
+  <tr mat-header-row *matHeaderRowDef="objectKeys(columnHeader)"></tr>
+  <tr mat-row *matRowDef="let row; columns: objectKeys(columnHeader);"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5,10,15]" class="mat-paginator-sticky" showFirstLastButtons></mat-paginator>
+
+

@@ -1,0 +1,81 @@
+<mat-toolbar class="headtoolbar mb-3">
+    <h4 class="pl-2"> Copy Account Data to Lead Detail </h4>
+    <span class="checkbox-inner-toolbar">
+        <mat-checkbox [(ngModel)]="checked"  (change)="updateNativeEnable($event)"> 
+           Update only blank fields
+        </mat-checkbox>
+    </span> 
+    <span>
+        <button class="d-flex" mat-raised-button color="primary" (click)="addRow()">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon> Add Row </button>
+    </span>
+</mat-toolbar>
+
+
+<div class="container-fluid mb-3">
+    <div class="row">
+        <div class="col-md-12 m-auto">
+            <table mat-table [dataSource]="dataSource" matSort class="table-striped">
+                <ng-container matColumnDef="crmleadlabel">
+                    <th mat-header-cell *matHeaderCellDef> CRM Lead Label</th>
+                    <td  mat-cell *matCellDef="let element  " class="pr-3 py-2" > 
+                        <div class="form-group my-0">
+                            <select class="form-control" [disabled]="element.checkSavedata" (change)="leadChange(element,$event)">
+                                <option value="">Select CRM lead label</option>
+                                <option *ngIf="element.crmleadlabel" [value]="element.crmleadlabel.LabelName" selected>{{element.crmleadlabel.LabelName}} </option>
+                                <option *ngFor="let leadlabel of crmleadlable let i = index" [value]="i">{{leadlabel.LabelName}}</option>
+                            </select>
+                        </div>
+                    </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="crmaccountlabel">
+                    <th mat-header-cell *matHeaderCellDef> CRM Account Label </th>
+                    <td  mat-cell *matCellDef="let element"  class="pr-3 py-2" > 
+                        <div class="form-group my-0">
+                            <select class="form-control" [disabled]="element.checkSavedata" (change)="accountChange(element,$event)">
+                              <option value="">Select CRM Account label</option>
+                                <option *ngIf="element.crmaccountlabel" [value]="element.crmaccountlabel.LabelName" selected> {{element.crmaccountlabel.LabelName}} </option>
+                                <option *ngFor="let leadlabel of crmAccountLable let i =index" [value]="i">{{leadlabel.LabelName}}</option>
+                            </select>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="recordStatus">
+                  <th class="text-center" mat-header-cell *matHeaderCellDef> Record Status </th>
+                  <td  mat-cell *matCellDef="let element" class="pr-3 py-2 text-center"> 
+                    <div *ngIf="element.checkSavedata; else elseBlock"> <span class="active"> Active </span> </div>
+                    <ng-template #elseBlock> <span class="inactive"> Inactive</span> </ng-template>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="id" >
+                    <th class="text-center" mat-header-cell *matHeaderCellDef> Operation </th>
+                    <td  mat-cell *matCellDef="let element let i = index" class="pr-3 py-2 text-center" >
+                      <button color="orange" mat-raised-button [matMenuTriggerFor]="action">Action <mat-icon>arrow_drop_down</mat-icon> </button>
+                      <mat-menu #action="matMenu">
+                        <button *ngIf="element.checkSavedata" mat-menu-item (click)="modifyData(element)">
+                          <mat-icon color="successtext">edit</mat-icon>
+                          <span>Modify</span>
+                        </button>
+                        <button *ngIf="!element.checkSavedata" mat-menu-item (click)="save(element)">
+                          <mat-icon color="successtext">save</mat-icon>
+                          <span>Save</span>
+                        </button>
+                        <button mat-menu-item (click)="crmDelete(i)">
+                          <mat-icon color="warn">delete</mat-icon>
+                          <span>Delete</span>
+                        </button>
+                      </mat-menu>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+        </div>
+
+    </div>
+</div>
+

@@ -1,0 +1,27 @@
+
+
+<div class="col-md-5 m-auto py-5">
+<mat-card class="p-0"> 
+    <mat-card-header class="impersonate-header">
+        Impersonate Login
+    </mat-card-header>
+    <mat-card-content class="px-4">
+        <ngx-select-dropdown class="col-md-3 dropdownselect pr-0" [multiple]="false" [options]="clientOptions" [config]="clientConfig" ></ngx-select-dropdown> 
+
+        <div class="form-group mt-4">
+            <select class="form-control" name="user" id="user">
+                <option value="" Selected> Select User* </option>
+                <option value="user1"> User 1 </option>
+                <option value="user1"> User 2 </option>
+                <option value="user1"> User 3 </option>
+            </select>
+        </div>
+
+    </mat-card-content>
+    <mat-card-actions>
+        <div class="example-button-row text-right px-4">
+            <button class="mr-2 mb-4" mat-raised-button color="primary">Login</button>
+        </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

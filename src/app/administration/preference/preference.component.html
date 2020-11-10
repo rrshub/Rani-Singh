@@ -1,0 +1,93 @@
+<mat-toolbar class="headtoolbar mb-3">
+
+    <h4 class="pl-2">Preference Detail</h4>
+</mat-toolbar>
+<div class="container-fluid mb-3">
+    <div class="row">
+        <div class=" col-md-8 m-auto">
+            <mat-card class="mb-3">
+                
+                <mat-card-header class="mat-card-header">Preference settings</mat-card-header>
+                <mat-card-content class="pt-0">
+                    <mat-list class="prelist-item">
+                        <mat-list-item>
+                            <mat-checkbox [(ngModel)]="clientPreferenceModel.LMP" (input)="checkbox(1)">Merge Duplicate Leads</mat-checkbox>
+                            <!-- <div class=" d-block"></div> -->
+                            <div class="card border-primary d-inline-block" *ngIf="clientPreferenceModel.LMP">
+                                <div class=" card-header border-primary"><strong>Select the Master Record</strong></div>
+                                <div class="card-body">
+                                    <mat-radio-group [(ngModel)]="clientPreferenceModel.LMP" aria-label="Select an option">
+                                        <mat-radio-button value="Survive Newest" (input)="newest(1)">New record is master lead record</mat-radio-button>
+                                        <mat-radio-button value="Survive Oldest" (input)="oldest(1)">Old record is master lead record</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                        </mat-list-item>
+
+                        <mat-divider></mat-divider>
+                        <mat-list-item><mat-checkbox [(ngModel)]="clientPreferenceModel.AORP">Assign to Account Owner When Lead is Matched to an Account</mat-checkbox></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><mat-checkbox [(ngModel)]="clientPreferenceModel.IOP">Continue to Next Assignment Rule If Owner is Inactive</mat-checkbox></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <div *ngIf="IsPartnerConfigure==1">
+                            <mat-list-item>
+                                
+                                <mat-checkbox [(ngModel)]="clientPreferenceModel.reassignLeadsCheckbox">Reassign Unread Leads to Another Owner</mat-checkbox>
+                                <div class=" d-block"></div>
+                                <div class="card border-primary d-inline-block" *ngIf="clientPreferenceModel.reassignLeadsCheckbox">
+                                    <div class=" card-header border-primary" >
+                                        <strong>Reassign Unread Leads to Another Owner (In Days)</strong>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                        
+                                            <select class="form-control col-md-8 form-control-sm"
+                                            [(ngModel)]="clientPreferenceModel.data[0].CRMLeadAcceptanceDeadline"
+                                            >
+                                            <option selected disabled value=null disabled>Select number of inactivity days to reassign leads</option>
+                                            <option selected  value={{number}} *ngFor="let number of numbers">{{number}}</option>
+                                            
+                                            </select>
+                                        </div>
+                                        <mat-checkbox [(ngModel)]="clientPreferenceModel.NotifyOnCRMLeadPeriodCheckbox">Notify lead owner’s manager on expiry of lead acknowledgement period</mat-checkbox>
+                                    </div>
+                                </div>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item>
+                                <mat-checkbox [(ngModel)]="clientPreferenceModel.reassignPartnerLeadsCheckbox">Reassign Partner Leads</mat-checkbox>
+                                <div class=" d-block"></div>
+                                <div class="card border-primary d-inline-block" *ngIf="clientPreferenceModel.reassignPartnerLeadsCheckbox">
+                                    <div class=" card-header border-primary">
+                                        <strong>Reassign Partner Leads (In Days)</strong>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                        
+                                            <select class="form-control  form-control-sm"
+                                            [(ngModel)]="clientPreferenceModel.data[0].PartnerCRMLeadAcceptanceDeadline">
+                                                <option selected disabled value=null>Select number of inactivity days to reassign leads</option>
+                                                <option selected  value={{number}}  *ngFor="let number of numbers">{{number}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-list-item>
+                        </div>
+                    </mat-list>
+                </mat-card-content>
+                <mat-card-actions align="center" class="pl-4 pb-2">
+                    <div class="form-group">
+                        <button  mat-raised-button color="primary"  
+                        [disabled]="this.disabled"  type="button" (click)="onEditPreferenceDetails()">Save
+                         </button>
+                    </div>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+<app-progress-spinner class="spinner-position" [mode]="ProgressSpinnermode" *ngIf="this.CanvasProgressSpinner">
+</app-progress-spinner>
+

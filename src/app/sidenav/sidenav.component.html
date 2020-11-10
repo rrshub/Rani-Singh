@@ -1,0 +1,209 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span class="ml-1"><img [src]="logosrc" [width]="236" alt="LeadAngel-logo" title="LeadAngel"></span>
+
+    <!-- <button  (click)="action.isVisibleA = !action.isVisibleA" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon"><mat-icon>menu</mat-icon></button> -->
+    <span class="example-spacer"></span>
+    <span class="user-text-id user-text">Client ID:0000</span>
+    
+    <button mat-button [matMenuTriggerFor]="leftDropdownn" class="user-text">Features <span class="material-icons">
+      expand_more
+      </span></button> 
+    <mat-menu #leftDropdownn="matMenu">
+      <button mat-menu-item >
+        ABM Segmentation
+        Analytics
+      </button>
+     <button mat-menu-item>
+        Contact Router
+      </button>
+      <button mat-menu-item>
+        Lead Router
+      </button>
+      <button mat-menu-item>
+        Partner Lead Router
+      </button>
+    </mat-menu>
+    
+    <a class="user-text help-icon mr-1" [href]="leadangellink" target="_blank">Help </a> <i _ngcontent-c1=""
+    class="material-icons"> help </i>
+    <span class="user-text ml-3">Client Name Here</span> <button mat-icon-button [matMenuTriggerFor]="menu">
+      <i class="material-icons">
+        account_circle
+      </i>
+    </button>
+    <mat-menu #menu="matMenu">
+      <!-- <button mat-menu-item>
+          <mat-icon class="text-success">perm_identity</mat-icon> {{this.role}}
+        </button> -->
+
+      <button mat-menu-item (click)="changePassword()">
+        <mat-icon class="text-success">vpn_key</mat-icon> <span>Change Password</span>
+      </button>
+
+      <button mat-menu-item (click)="onImpersonateLogout()">
+        <mat-icon color="warn">exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+
+
+
+    </mat-menu>
+
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="main-canvas myDivToPrint">
+
+  <as-split direction="horizontal" [gutterSize]="6">
+    <as-split-area class="left-split-area" [visible]="action.isVisibleA" [order]="0" size="19" minSize="12"
+      maxSize="32">
+
+
+
+      <as-split direction="vertical" restrictMove="true" [gutterSize]="0" class="position-relative">
+        <app-progress-spinner class="spinner-position" [mode]="ProgressSpinnermode" *ngIf="this.displayProgressSpinner">
+        </app-progress-spinner>
+
+        <as-split-area class="overflow-hidden bg-light-blue" [size]="7">
+          <div class="leftsearchpanel">
+            <input type="text" class="filter" [(ngModel)]="searchString" autocomplete="off"
+              (keyup)="filterChanged($event)">
+            <mat-icon>filter_alt</mat-icon>
+            <button mat-icon-button class="close-button" *ngIf="ClearSearchbutton" (click)="clearsearch()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </as-split-area>
+        <as-split-area class="overflow-auto  bg-white fiter-border-top pb-3" [size]="93">
+
+          <mat-tree class="mainmenutree" [dataSource]="dataSource" [treeControl]="treeControl">
+            <!-- This is the tree node template for leaf nodes -->
+
+            <mat-tree-node class="left-tree-menu" *matTreeNodeDef="let node" matTreeNodePadding
+              matTreeNodePaddingIndent="12" (click)="activeNode = node"
+              [ngClass]="{ 'background-highlight': activeNode === node}">
+              <button mat-icon-button disabled class="caretbtn"></button>
+              <!-- use a disabled button to provide padding for tree leaf  ,Test:testData routerLink="canvasinfo" [routerLink]="['canvasinfo']" (click)="leadAngleObjectSelect(node)"-->
+              <button mat-button [disableRipple]="true" class="subtreebutton" [routerLink]="['canvasinfo']"
+                [queryParams]="{objectid: node.MenuId,objecttypeid: node.ObjectTypeId,rnd:testData}"   
+                (click)="leadAngleObjectSelect(node)" (contextmenu)="onContextMenu($event, node)">
+                <i class="treeicons {{node.MenuCondition}} level-{{node.level}} IsApproved-{{node.IsApproved}} IsObjectEdited-{{node.IsObjectEdited}} IsFolder-{{node.IsFolder}} LeadRouterStatus-{{LeadRouterStatus}}"
+                  [ngClass]="this.SystemDataDictionaryclass"></i>{{node.name}}
+              </button>
+
+            </mat-tree-node>
+            <!-- This is the tree node template for expandable nodes -->
+            <mat-tree-node (click)="activeNode = node" [ngClass]="{ 'background-highlight': activeNode === node}"
+              class="left-tree-menu" matTreeNodePaddingIndent="12" *matTreeNodeDef="let node;when: hasChild"
+              matTreeNodePadding (contextmenu)="onContextMenu($event, node)">
+              <button mat-icon-button matTreeNodeToggle [disableRipple]="true" class="caretbtn"
+                [attr.aria-label]="'toggle ' + node.name">
+                <mat-icon class="mat-icon-rtl-mirror">
+                  {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+              </button>
+              <button [disableRipple]="true" mat-button class="subtreebutton">
+                <i class="treeicons {{node.MenuCondition}} level-{{node.level}} IsApproved-{{node.IsApproved}} IsObjectEdited-{{node.IsObjectEdited}} IsFolder-{{node.IsFolder}} LeadRouterStatus-{{LeadRouterStatus}}"
+                  [ngClass]="this.SystemDataDictionaryclass"></i>{{node.name}}</button>
+
+            </mat-tree-node>
+          </mat-tree>
+
+
+        </as-split-area>
+
+      </as-split>
+
+    </as-split-area>
+    <as-split-area class="right-split-area position-relative" size="81" [order]="1">
+
+      <router-outlet></router-outlet>
+
+    </as-split-area>
+  </as-split>
+</div>
+
+<!-- Context Menu -->
+<div #trigger="matMenuTrigger" style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+  [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+</div>
+<mat-menu #contextMenu="matMenu" class="context-menu-panel">
+  <ng-template matMenuContent let-item="item">
+    <div
+      *ngIf="((item.ObjectTypeId && item.level ==0) || (item.level ==1 && (item.MenuCondition != 'LeadRouter' && item.MenuCondition != 'PartnerGroupLead' && item.MenuCondition != 'TLSegment'))) && (item.IsFolder==0) ">
+      <button mat-menu-item (click)="onContextMenuAction(item,'NEW_OBJECT')">
+        <mat-icon color="primary">{{newmenuicon}}</mat-icon>New {{item.name}}
+      </button>
+      <button mat-menu-item (click)="onContextMenuAction(item,'NEW_FOLDER')">
+        <mat-icon color="warning">{{foldermenuicon}}</mat-icon>New Folder
+      </button>
+    </div>
+    <div
+      *ngIf="(item.children.length ==0) && ((item.level > 1) || (item.level == 1 && (item.MenuCondition == 'LeadRouter' || item.MenuCondition == 'PartnerGroupLead' || item.MenuCondition == 'TLSegment'))) && (item.MenuCondition != 'MarketSegment') && (item.IsFolder==0)">
+      <button mat-menu-item (click)="onContextMenuAction(item,'APPROVED')">
+        <mat-icon color="successtext">done_all</mat-icon>Approve
+      </button>
+      <button mat-menu-item (click)="onContextMenuAction(item,'EDIT')">
+        <mat-icon color="indigotext">{{editicon}}</mat-icon>Edit
+      </button>
+      <button mat-menu-item (click)="onContextMenuAction(item,'RENAME')">
+        <mat-icon color="orangetext">{{renameicon}}</mat-icon>Rename
+      </button>
+      <button mat-menu-item (click)="onContextMenuAction(item,'CLONE')">
+        <mat-icon color="primary">{{clonemenuicon}}</mat-icon>Clone
+      </button>
+      <button *ngIf="item.MenuCondition !='PartnerGroupLead'" mat-menu-item (click)="onContextMenuAction(item)">
+        <mat-icon class="darkgrey">swap_vert</mat-icon>Move
+      </button>
+      <button mat-menu-item (click)="onContextMenuAction(item,'DELETE')">
+        <mat-icon color="textdanger">delete</mat-icon>Delete
+      </button>
+      <button *ngIf="item.MenuCondition =='PartnerGroupLead' || item.MenuCondition =='LeadRouter'" mat-menu-item
+        (click)="onContextMenuAction(item,'ACTIVATE')">
+        <mat-icon color="routeractive">toggle_on</mat-icon>Activate
+      </button>
+      <button *ngIf="item.MenuCondition =='PartnerGroupLead' || item.MenuCondition =='LeadRouter'" mat-menu-item
+        (click)="onContextMenuAction(item,'DEACTIVATE')">
+        <mat-icon color="inactive">toggle_off</mat-icon>DeActivate
+      </button>
+    </div>
+    <div
+      *ngIf="(item.children.length ==0) && (item.level > 2) && (item.MenuCondition == 'MarketSegment') && (item.IsFolder==0)">
+      <button mat-menu-item (click)="onContextMenuAction(item,'APPROVED')">Approve</button>
+      <button mat-menu-item (click)="onContextMenuAction(item,'EDIT')">
+        <mat-icon color="indigotext">{{editicon}}</mat-icon>Edit
+      </button>
+    </div>
+    <div
+      *ngIf="(item.children.length >0 ) && (item.level > 1) && (item.MenuCondition == 'MarketSegment') && (item.IsFolder==0)">
+      <button mat-menu-item (click)="onContextMenuAction(item,'RENAME')">
+        <mat-icon color="orangetext">{{renameicon}}</mat-icon>Rename
+      </button>
+      <button mat-menu-item (click)="onContextMenuAction(item,'CLONE')">
+        <mat-icon color="primary">{{clonemenuicon}}</mat-icon>Clone
+      </button>
+      <button mat-menu-item (click)="onContextMenuAction(item,'MOVE')">
+        <mat-icon class="darkgrey">swap_vert</mat-icon>Move
+      </button>
+      <button mat-menu-item (click)="onContextMenuAction(item,'DELETE')">
+        <mat-icon color="textdanger">delete</mat-icon>Delete
+      </button>
+    </div>
+    <div *ngIf="(item.IsFolder==1)">
+      <button mat-menu-item (click)="onContextMenuAction(item,'NEW_OBJECT')">
+        <mat-icon color="primary">{{newmenuicon}}</mat-icon>{{this.foldermenuName.menuNames[0][item.MenuCondition]}}
+      </button>
+      <button mat-menu-item (click)="onContextMenuAction(item,'NEW_FOLDER')">
+        <mat-icon color="warning">{{foldermenuicon}}</mat-icon>New Folder
+      </button>
+      <button mat-menu-item (click)="onContextMenuAction(item,'DELETE')">
+        <mat-icon color="textdanger">delete</mat-icon>Delete
+      </button>
+      <button mat-menu-item (click)="onContextMenuAction(item,'RENAME')">
+        <mat-icon color="orangetext">{{renameicon}}</mat-icon>Rename
+      </button>
+    </div>
+
+  </ng-template>
+</mat-menu>

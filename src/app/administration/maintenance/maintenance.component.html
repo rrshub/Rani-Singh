@@ -1,0 +1,26 @@
+<!-- <p>maintenance works!</p> -->
+
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="m-auto col-sm-11">
+            <div class="titlebg pl-2">
+                <h4>
+                Click the "Refresh Labels" button below to sync LeadAngel column mapping with CRM
+                </h4>
+            </div>
+            <mat-card>
+                <app-progress-spinner class="spinner-position" [mode]="ProgressSpinnermode" *ngIf="this.AttrProgressSpinner">
+                </app-progress-spinner>
+                <button mat-raised-button color="primary" (click)="refreshLabels()">Refresh Labels</button>
+                <div class="pull-right">
+                <label class="ml-3">Last Refreshed Date :</label>
+                <label class="ml-3"> {{LastRefreshLabelTS | date: 'medium':'UTC'}} UTC </label>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+<app-progress-spinner class="spinner-position" [mode]="ProgressSpinnermode" *ngIf="this.CanvasProgressSpinner">
+</app-progress-spinner>
+

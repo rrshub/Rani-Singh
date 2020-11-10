@@ -1,0 +1,28 @@
+<mat-toolbar class="toolbarheader">
+  <h4>Manage Client Setting</h4>
+   <span class="spacer"></span>
+   <app-download-csv 
+    [csvData]      = "csvData"
+    [csvHeader]    = "csvHeader"
+    [title]        = "title"
+    [buttonName]   = "buttonName"
+    [fileName]     = "fileName"
+    [isDownloaded] = "isDownloaded"
+    (click)        = "downloadAllSettings()"
+  ></app-download-csv>
+
+   <app-data-table-filter 
+   [tableData]="tableData" 
+   (filteredData)=tableFilterRec($event) 
+   [completed]="isCompleted"
+   ></app-data-table-filter>
+  </mat-toolbar>
+  
+<div class="container-fluid mt-3 m-b3">
+  <app-data-table 
+  [tableData]    = "tableData"
+  [columnHeader] = "columnHeader"
+  (isUpdated)    =  dataTableRec($event)
+></app-data-table>
+</div>
+<app-progress-spinner class="spinner-position" [mode]="ProgressSpinnermode" *ngIf="this.displayProgressSpinner"></app-progress-spinner>

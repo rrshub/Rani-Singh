@@ -1,0 +1,91 @@
+<mat-toolbar class="headtoolbar mb-3">
+
+    <h4 class="pl-2">Auto Conversion Detail</h4>
+</mat-toolbar>
+<div class="container-fluid mb-3">
+    <div class="row">
+        <div class=" col-md-8 m-auto">  
+            <mat-card>
+                <mat-card-header class="mat-card-header"> 
+                    Setup your auto conversion preferences here
+                </mat-card-header>
+                <mat-card-content class="py-0">
+                    <mat-list class="prelist-item">
+                        <!--  -->
+                        <mat-list-item>
+                            <mat-checkbox   [(ngModel)]="AutoConversionData.LeadMergeToContact" [disabled]="true">
+                                Auto merge existing leads to matching contact
+                            </mat-checkbox>
+                            <div class=" d-block"></div>
+                            <div class="card border-primary d-inline-block" *ngIf="AutoConversionData.LeadMergeToContact">
+                                <div class="card-body">
+                                    <mat-radio-group aria-labelledby="Select-Option" 
+                                    class="conversion-radio-button"  [(ngModel)]="AutoConversionData.LeadMergeToContactOwner">
+                                    <mat-radio-button  name="Contact"  value="Contact" [disabled]="true">Existing contact owner continues to own merged record</mat-radio-button>
+                                    <mat-radio-button name="Lead" value="Lead" [disabled]="true">Existing lead owner continues to own merged record</mat-radio-button>
+                                </mat-radio-group>
+                                </div>
+                            </div>
+                        </mat-list-item>
+                        <!--  -->
+                        <mat-divider></mat-divider>
+                        <mat-list-item>
+                            <mat-checkbox [(ngModel)]="AutoConversionData.LeadConvertToContact" [disabled]="true">
+                                Auto convert leads into contact if matching account is found
+                            </mat-checkbox>
+                            <div class=" d-block"></div>
+                            <div class="card border-primary d-inline-block" *ngIf="AutoConversionData.LeadConvertToContact">
+                                <div class="card-body">
+                                    <mat-radio-group aria-labelledby="Select-Option" 
+                                    class="conversion-radio-button" [(ngModel)]="AutoConversionData.LeadConvertToContactOwner">
+                                    <mat-radio-button value="Account" [disabled]="true">Existing account owner will own the new contact record</mat-radio-button>
+                                    <mat-radio-button value="Lead" [disabled]="true">Existing lead owner will own the new contact record</mat-radio-button>
+                                </mat-radio-group>
+                                </div>
+                            </div>
+                        </mat-list-item>
+                        <!--  -->
+                        <mat-divider></mat-divider>
+                        <mat-list-item>
+                            <mat-checkbox [(ngModel)]="AutoConversionData.LeadConvertToContactAccount" [disabled]="true">
+                                Auto convert leads into contact and account if no matching account is found
+                            </mat-checkbox>
+                            <div class=" d-block"></div>
+                            <div class="card border-primary d-inline-block" *ngIf="AutoConversionData.LeadConvertToContactAccount">
+                                <div class="card-body">
+                                    <mat-radio-group aria-labelledby="Select-Option" 
+                                    class="conversion-radio-button"[(ngModel)]="AutoConversionData.LeadConvertToContactAccountOwner" >
+                                    <mat-radio-button value="Lead" [disabled]="true">Existing lead owner will own the new contact and account record</mat-radio-button>
+                                    <mat-radio-button value="AdminUser" [disabled]="true">SFDC admin owns the new contact and account record</mat-radio-button>
+                                </mat-radio-group>
+                                </div>
+                            </div>
+                        </mat-list-item>
+                        <!--  -->
+                        <mat-divider></mat-divider>
+                        <mat-list-item>
+                            <mat-checkbox [(ngModel)]="AutoConversionData.CreateOppWhileMerging" [disabled]="true">
+                                Create Opportunity while converting/merging leads
+                            </mat-checkbox>
+                        </mat-list-item>
+                        <!--  -->
+                      </mat-list>
+                </mat-card-content>
+            </mat-card>
+
+            <div class="alert alert-warning alert-size mt-2" >
+                Please contact Lead Angel support (success@leadangel.com) for updating the auto conversion rules.
+              </div>
+
+            
+        </div>
+     
+    </div>
+</div>
+
+<app-progress-spinner class="spinner-position" [mode]="ProgressSpinnermode" *ngIf="this.CanvasProgressSpinner">
+</app-progress-spinner>
+
+
+
+

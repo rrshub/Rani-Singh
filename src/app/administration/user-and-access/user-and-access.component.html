@@ -1,0 +1,19 @@
+<mat-toolbar class="toolbarheader">
+    <h4>User and Access List</h4>
+     <span class="spacer"></span>
+    <button mat-raised-button color="primary" (click)="Opendailogbox('New')" >New User</button>
+
+    <app-data-table-filter 
+   [tableData]="tableData" 
+   (filteredData)=tableFilterRec($event) 
+   [completed]="isCompleted"
+   ></app-data-table-filter>
+  
+</mat-toolbar>
+<div class="container-fluid mt-3 m-b3">
+    <app-data-table 
+    [tableData]    = "tableData"
+    [columnHeader] = "columnHeader"
+    (isUpdated)    =  dataTableRec($event)
+  ></app-data-table>
+  </div>

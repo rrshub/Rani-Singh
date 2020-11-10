@@ -1,0 +1,583 @@
+// tab containt
+$dark-bg: #00587f;
+$whitebg: #ffffff;
+$whitebgimp: #ffffff !important;
+$whitetext: #ffffff;
+$panelheadcolor: #287e9f !important;
+$panel-header: #285d75 !important;
+$panel-text-size: 14px;
+$bggray: #e4e4e4;
+$maintitle-color: #323232;
+$bluelight:#d6f4ff;
+$bordergray: #b7b7b7;
+$underline: #ccc;
+$panel-bg: #efefef;
+// $panelheadcolor:#3f537a;
+$active-tab: rgba(0, 0, 0, 0.2901960784313726);
+$orange: #ff6000;
+$icon-save: #5db310;
+$delete-color-text: #e84b4b;
+
+$button_infoL: #e25400;
+$rightmenuiconpath: "src/assets/icons";
+.p-15 {
+    padding: 15px;
+}
+.text-21 {
+    font-size: 21px !important;
+}
+.vertical-mid {
+    vertical-align: middle !important;
+}
+::ng-deep .mar-bg {
+    background: #f8f4ff;
+}
+.grid-tile {
+    mat-grid-tile {
+        mat-grid-tile-header {
+            height: 40px;
+            background: $panel-header;
+            border-radius: 4px 4px 0 0;
+            font-size: 14px;
+            mat-icon {
+                font-size: 20px;
+                line-height: 24px; width: 20px;
+            }
+        }
+        mat-grid-tile-header.bg-white {
+            background: $whitebgimp;
+        }
+        figure {
+            align-items: normal !important;
+            justify-content: left !important;
+            .detail-box{
+                padding-top: 40px;
+            }
+        }
+        mat-card {
+            border-radius: 0 0 4px 4px;
+            margin-bottom: 2px;
+            font-size: 14px;
+        }
+    }
+}
+.canvas-panel {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    .tab-slider--nav {
+        background: $panelheadcolor;
+        position: relative;
+        min-height: 37px;
+
+        .collapse-btn {
+            position: absolute;
+            right: 0;
+            top: 0;
+            color: $whitetext;
+        }
+    }
+}
+
+.tab-slider--nav {
+    width: 100%;
+}
+
+.tab-slider--tabs {
+    padding: 0;
+    list-style: none;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-bottom: 0;
+    display: flex;
+    overflow: hidden;
+
+    .tab-slider--trigger {
+        position: relative;
+        padding-left: 30px;
+        display: inline-flex;
+        max-width: 300px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 14px;
+
+        .reportpill {
+            display: none
+        }
+
+        .material-icons {
+            position: absolute;
+            left: 8px;
+            font-size: 18px;
+            top: 11px;
+            color: #ffd842;
+        }
+
+        .detail-icon-color {
+            color: #afe1ff;
+        }
+
+        .approve-icon-color {
+            color: #26ff00;
+        }
+
+        .individual-icon-color {
+            color: $whitebg;
+        }
+
+        .customreporticon {
+            color: #ff5e00;
+        }
+    }
+}
+
+.tab-slider--trigger {
+    font-size: 16px;
+    line-height: normal;
+    font-weight: normal;
+    color: $whitebg;
+    text-align: center;
+    padding: 10px 20px;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    display: inline-block;
+    transition: color 250ms ease-in-out;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.tab-slider--trigger.active {
+    color: $whitebg;
+    background: $active-tab;
+}
+
+.subheadtoolbar {
+    height: 45px;
+    border-bottom: 1px solid #b7b7b7;
+    background: #e4e4e4;
+    padding: 0 10px;
+
+    .save-time {
+        
+        font-size: 13px;
+        font-weight: 400;
+    }
+
+    .save-info {
+        color: #3f405d;
+    }
+
+    button {
+        background-color: #f4f5f5;
+        border: 1px solid #b3b3b3;
+        border-radius: 2px;
+        margin-right: 4px;
+        padding: 0 10px;
+        font-size: 13px;
+        background-image: linear-gradient(to bottom, #f4f5f5, #dfdddd);
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f4f5f5, endColorstr=#dfdddd);
+
+        mat-icon {
+            color: $orange;
+        }
+    }
+
+    .form-control.is-invalid {
+        border-width: 2px;
+    }
+    // .mat-height-22{ height: 22px;}
+    h4 {
+        color: $maintitle-color;
+        font-size: 18px;
+    }
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.canvas-panel-box {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 82px;
+    width: 100%;
+    //   height: 100%;
+    bottom: 0;
+
+}
+
+.rightpanel {
+    background: $whitebg;
+    box-shadow: -2px -2px 2px #00000026;
+}
+
+.list-filter {
+    position: relative;
+
+    .filter {
+        background:$bluelight;
+        border-radius: 0;
+        padding:10px 37px 6px 15px !important;
+        border: none !important;
+        // border-bottom: 2px solid #bcdbea !important;
+        width: 100% !important;
+        outline: 0;
+        height: 46px;
+    }
+
+    mat-icon {
+        position: absolute;
+        right: 12px;
+        top: 14px;
+        color:#ff60009e;
+    }
+
+}
+
+.right-treeview-box {
+    margin-top: 0;
+    padding-top: 0;
+
+    .mat-list-item {
+        height: auto;
+        padding: 5px 0 5px 28px;
+    }
+
+    .right-treeview-box {
+        margin-left: 15px;
+
+        .mat-list-item {
+            font-size: 14px;
+
+        }
+    }
+}
+
+.fieldset,
+.cdk-drag-preview {
+    min-height: 100%;
+    padding:0 15px 20px;
+    z-index: 1;
+    position: relative;
+
+    
+       
+        .mat-expansion-panel {
+            .mat-expansion-panel-header {
+                cursor: pointer;
+                background:$panel-header;
+                border-radius: 2px 2px 0 0;
+                height: 40px !important;
+                padding: 0 15px;
+                position: relative;
+
+                .number-text {
+                    position: absolute;
+                    margin: 0 auto;
+                    left: 0;
+                    right: 0;
+                    width: 80px;
+                    text-align: center;
+                }
+
+                mat-panel-title {
+                    color: #fff;
+
+                    .text-attr-title {
+                        max-width: 260px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+
+
+            }
+
+.mat-expansion-panel-body {
+                
+                .form-group {
+                    .col-form-label {
+                        text-align: right;
+                        color: #000;
+                        word-break: break-word;
+                        overflow-wrap: break-word;
+                    }
+                }
+            }
+
+            
+        }
+ 
+    .dragpanel {
+        position: relative;
+        margin-top: 15px;
+
+        .clearpanel-btn {
+            position: absolute;
+            right: 8px;
+            top: 9px;
+            width: 28px;
+            background: 0 0;
+            border: none;
+            cursor: pointer;
+            z-index: 11;
+            min-width: auto;
+            padding: 0;
+            line-height: normal;
+
+            mat-icon {
+                font-size: 20px;
+                color: #fff;
+            }
+        }
+    }
+   
+}
+
+::ng-deep .mat-expansion-panel-body {
+    background:$panel-bg;
+    padding: 15px 0 ;
+}
+::ng-deep .mat-expansion-indicator {
+    margin-right: 30px;
+}
+::ng-deep  .canvas-droppanel.fieldset{
+    .mat-expansion-indicator {
+        margin-right:0 !important;
+    }
+}
+
+::ng-deep .mat-expansion-indicator::after {
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    content: "";
+    display: inline-block;
+    padding: 4px !important;
+    margin-top: -10px !important;
+    vertical-align: middle !important;
+    color: #fff;
+}
+.dragboxemptypanel {
+    text-align: center;
+    border: 2px dashed red;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    color: grey;
+    position: absolute;
+    left: 15px;
+    right: 15px;
+}
+.addinpanel {
+    position: relative;
+    input{ padding-right: 30px;}
+    .mat-icon-button {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        position: absolute;
+        right: 0;
+        top: 2px;
+    }
+}
+.infotext{position: absolute;
+right: -26px;
+top: 5px;
+color: #ff9818; cursor:default;}
+.mat-list-item.cdk-drag-preview {
+    background: $orange;
+    padding: 7px 15px !important;
+    box-shadow: 2px 2px 2px #000000d1;
+    color: $whitebg;
+    cursor: pointer;
+    height: auto !important;
+    min-height: auto;
+}
+::ng-deep .right-nav-list {
+    .mat-list-item {
+        height: auto !important;
+        font-size: 14px;
+        padding: 5px 0 5px 26px !important;
+        .mat-list-item-content {
+            padding-left:18px !important;    white-space: nowrap;
+
+            i {
+                width:16px;
+                height: 16px;
+                display: inline-block;
+                position: absolute;
+                left: 0;
+                top: 4px;
+                background-size:16px;
+                background-repeat: no-repeat;
+            }
+        }
+    }
+    .parent-mat-li{ padding: 5px 0 5px 0px !important;
+        .mat-list-item-content {padding-left:10px !important;
+        .material-icons{
+            font-size:20px; color:#e4a000; line-height: 22px;
+        }}
+    }
+    .mat-list-item:hover {
+        background: $bluelight;
+        color: #000;
+        cursor: pointer;
+    }
+}
+
+.righticon-STRING,
+.righticon-string {
+    background: url(#{$rightmenuiconpath}/abc.png);
+}
+.righticon-NUMBER {
+    background: url(#{$rightmenuiconpath}/number.png);
+}
+.righticon-BOOLEAN {
+    background: url(#{$rightmenuiconpath}/boolean.png);
+}
+.righticon-DATETIME {
+    background: url(#{$rightmenuiconpath}/calendar.png);
+    top: 2px !important;
+}
+.righticon-smartINOnlyString {
+    background: url(#{$rightmenuiconpath}/smart-attr.png);
+    top: 2px !important;
+}
+.righticon-AccountList_MENUDATA{background: url(#{$rightmenuiconpath}/account-list.png); top: 2px !important;
+background-size: 12px !important;}
+.righticon-AccountStatus_MENUDATA{background: url(#{$rightmenuiconpath}/lead.png); top: 2px !important;
+background-size: 12px !important;}
+.righticon-MarketSegment_MENUDATA{background: url(#{$rightmenuiconpath}/market-segment.png); top: 2px !important;
+background-size: 12px !important;}
+.righticon-SystemDataDictionary_MENUDATA{background: url(#{$rightmenuiconpath}/SystemDataDictionary.png); top: 2px !important;
+background-size: 12px !important;}
+.scrollbar-hidden {
+    overflow: hidden;
+    .fieldset {
+        position: absolute;
+        right: 0;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        overflow: hidden;
+        overflow-y: auto;
+    }
+}
+.date-relative {
+    position: relative;
+    .mat-datepicker-toggle {
+        position: absolute;
+        top: -2px;
+        right: -4px;
+        color: $dark-bg;
+    }
+    .dateinput {
+        font-size: 14px;
+    }
+}
+.routingterritorylist{ display: flex !important; margin-top: 0 !important; padding-top: 0 !important;
+    min-height: 50px;
+.dragdropempty-block{border:2px dashed red; width:96%; height: 50px;left: 0;
+    right: 0;
+    margin: 0 auto;
+    padding-top: 12px;
+    color: #939393; position: absolute;}
+.mat-list-item{ height: auto !important;
+.territolabel{  display: block; position: relative;
+    width: 100%;
+    label{
+        width: 100%;
+        margin-bottom: 0;
+        border-radius: 4px;
+        padding: 4px 5px;
+        padding-right: 24px;
+        word-break: break-word;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border: 1px solid #a2dbf5;
+        background: #d6f4ff;
+        box-shadow: 2px 2px 2px #002f3a8c;
+        color: #00415f;
+        font-size: 14px;
+    }
+.mat-icon-button{ width: 24px;
+    height: 24px;
+    position: absolute;
+    right: 2px;
+    top: 3px;
+    line-height: 18px;text-align: center;
+.mat-icon{line-height: normal;
+    height: auto;
+    width: auto;font-size: 18px;}
+}
+}
+
+
+@media screen and (max-width:992px) {
+     margin-bottom: 10px;
+}
+}
+
+}
+.dragrowpanel {
+    min-height: 50px;
+    margin-bottom: 0;
+    border: 1px solid #cac9c9;
+    padding: 4PX 4px 3px 4px;
+    background: #efefef;
+    position: relative;
+    border-radius: 4px;
+    .row{padding-right: 30px; .mat-icon-button{position: absolute;
+        right: 8px;
+        top: -2px;}}
+   
+}
+::ng-deep .routerassigndragpanel{    padding: 5px 10px 5px 5px;
+    background: #e4e4e4;
+    border-bottom: 1px solid #ccc;
+.mat-list-item{
+    div{ position: initial !important;}
+    display: block; width: 100%;
+    text-align: left;
+    padding-left: 39px !important;
+    overflow: hidden;
+    background: $orange; position: relative;
+    border: 1px dashed #07070794;
+    color: #fff;
+    box-shadow: 2px 2px 2px #00000087;
+    .material-icons{    background: #0000004d;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 33px;
+        line-height:42px;
+        padding-left: 5px; color:$whitetext}
+}
+
+}
+table {
+    width: 100%;
+  }
+  .mat-paginator-sticky {
+    bottom: 0px;
+    position: sticky;
+    z-index: 10;
+  }
+  ::ng-deep .mat-toolbar{
+    .small, small {
+        font-size: 68%;
+        font-weight: 400;
+    }
+}

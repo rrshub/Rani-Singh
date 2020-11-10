@@ -1,0 +1,505 @@
+<!--User and Access Edit and New form-->
+
+
+
+<div *ngIf="data.dialogtype == 'New_Leadangel_User' || data.dialogtype=='Edit_Leadangel_User'||data.dialogtype=='Edit'||data.dialogtype=='New'"> 
+  <div class="header dailog-header">
+      <h1 mat-dialog-title>{{data.title}}</h1>
+  </div>
+     <form [formGroup]= "enroll" (ngSubmit) = "addUser()">
+          <mat-dialog-content>
+              <div class="form-group mt-3"  *ngIf="data.title=='New Client User' && data.dialogtype=='New_Leadangel_User'">
+                  <ngx-select-dropdown [config]="config"  [options]="dropdownOptions"  name="clientidval" formControlName = "clientidval">
+                  </ngx-select-dropdown>
+              </div>
+          <div class="form-group mt-3">
+              <label>Role<span class="text-danger">*</span></label>
+                  <select class="form-control" autocomplete="off" name="userrole" formControlName = "userrole"  [ngClass]="enroll.controls['userrole'].touched && enroll.controls['userrole'].invalid ? 'is-invalid' : ''"  required>
+                      <option *ngFor="let role of roles" [value]="role.value">{{role.viewValue}}</option>
+                  </select>
+                  <div *ngIf="enroll.controls['userrole'].touched && enroll.controls['userrole'].invalid">
+                  <mat-error *ngIf="enroll.controls['userrole'].hasError('required')">
+                       Role is required 
+                  </mat-error>
+                  </div>
+          </div>
+          <div class="form-group">
+              <label>First Name<span class="text-danger">*</span></label>
+              <input type="text" autocomplete="off" class="form-control" name="firstname" formControlName = "firstname" [ngClass]="enroll.controls['firstname'].touched && enroll.controls['firstname'].invalid ? 'is-invalid' : ''"  required>
+              <div *ngIf="enroll.controls['firstname'].touched && enroll.controls['firstname'].invalid">
+              <mat-error *ngIf="enroll.controls['firstname'].hasError('required')">
+                   First name required 
+              </mat-error>
+              </div>
+          </div>
+          <div class="form-group">
+              <label>Last Name<span class="text-danger">*</span></label>
+              <input type="text" autocomplete="off" class="form-control" name="lastname" formControlName = "lastname" [ngClass]="enroll.controls['lastname'].touched && enroll.controls['lastname'].invalid ? 'is-invalid' : ''" required>
+              <div *ngIf="enroll.controls['lastname'].touched && enroll.controls['lastname'].invalid">
+              <mat-error *ngIf="enroll.controls['lastname'].hasError('required')">
+                   Last name required 
+              </mat-error>
+              </div>
+          </div>
+          <div class="form-group">
+              
+              <label>Email Id<span class="text-danger">*</span></label>
+              <input type="text" autocomplete="off" class="form-control" [readonly]="data.dialogtype=='Edit_Leadangel_User'||data.dialogtype=='Edit'" name="useremailaddress" formControlName = "useremailaddress" [ngClass]="enroll.controls['useremailaddress'].touched && enroll.controls['useremailaddress'].invalid ? 'is-invalid' : ''"  required>
+              <mat-error *ngIf="enroll.controls['useremailaddress'].hasError('pattern')">
+                   Enter valid Email Id for example "example@abc.com" 
+              </mat-error>
+              <div *ngIf="enroll.controls['useremailaddress'].touched && enroll.controls['useremailaddress'].invalid">
+              <mat-error *ngIf="enroll.controls['useremailaddress'].hasError('required')">
+                   Email id required 
+              </mat-error>
+              </div>
+         
+          </div>
+      </mat-dialog-content>
+  <mat-dialog-actions align="end" class="mt-2">
+      <div class="form-group">
+  <button  mat-raised-button color="primary" [disabled]="!enroll.valid" type="submit">{{data.confirmText}}</button>
+  <button mat-raised-button mat-dialog-close>Cancle</button>
+  </div>
+  </mat-dialog-actions>
+  </form>
+  </div>
+<div *ngIf="data.dialogtype == 'ResetpassLeadangel_User'"> 
+    <div class="header dailog-header">
+     
+    </div>
+    <mat-dialog-content  class="text-center">
+        <h5>{{data.message}}</h5>
+        <p>{{data.title}}</p>
+       </mat-dialog-content>
+    <mat-dialog-actions align="center" class="mt-2">
+        <button mat-raised-button mat-dialog-close>Cancel</button>
+        <button mat-raised-button color="primary">{{data.confirmText}}</button>
+    </mat-dialog-actions>
+    </div>
+
+
+
+<!--User and Access delete form-->
+
+
+<div *ngIf="data.dialogtype == 'Delete_leadangel'||data.dialogtype=='Delete'"> 
+    <div class="header dailog-header">
+     
+    </div>
+    <mat-dialog-content  class="text-center">
+        <h5>{{data.message}}</h5>
+        <p>{{data.title}}</p>
+       
+    
+    </mat-dialog-content>
+    <mat-dialog-actions align="center" class="mt-2">
+        <button mat-raised-button mat-dialog-close>Cancel</button>
+        <button mat-raised-button color="primary" (click)="addUser()">Delete</button>
+    </mat-dialog-actions>
+    </div>
+<!-- client setting -->
+
+
+<div *ngIf = "data.dialogtype == 'Setting'">
+    <div class = "header dailog-header">
+        <h1 mat-dialog-title>{{data.title}}</h1>
+    </div>
+    <form [formGroup]= "mngClientPopUp" (ngSubmit) = "updateSetting()" class="frm">
+    <mat-dialog-content>
+        
+            <div class="form-group">
+
+<!-- 1 -->
+                <!-- <mat-form-field appearance="standard"> -->
+                    <label id="ClientType">Client Type</label>
+                    <mat-radio-group aria-label="ClientType"  class="form-control" formControlName = "ClientType"  required name="ClientType">
+                        <mat-radio-button value="Free">Free </mat-radio-button>
+                        <mat-radio-button value="Paid">Paid</mat-radio-button>
+                      </mat-radio-group>
+                    <!-- <mat-error *ngIf="mngClientPopUp.controls['ClientType'].hasError('required')">
+                        **** Client Type ****
+                    </mat-error> -->
+                <!-- </mat-form-field> -->
+<!-- 2 -->
+                    <label id="router">Router</label>
+                    <mat-radio-group aria-label="router"  class="form-control" formControlName = "Router"  required name="Router">
+                        <mat-radio-button value="Y">True </mat-radio-button>
+                      <mat-radio-button value="N">False</mat-radio-button>
+                      </mat-radio-group>
+                    <!-- <mat-error *ngIf="mngClientPopUp.controls['Router'].hasError('required')">
+                        **** Router ****
+                    </mat-error> -->
+
+<!-- 3 -->
+                    <label id="weekly">Weekly</label>
+                    <mat-radio-group aria-label="weekly"  class="form-control" formControlName = "FreeUserRun"  required name="FreeUserRun">
+                        <mat-radio-button value="Y">True </mat-radio-button>
+                        <mat-radio-button value="N">False</mat-radio-button>
+                      </mat-radio-group>
+                    <!-- <mat-error *ngIf="mngClientPopUp.controls['ClientType'].hasError('required')">
+                        **** Weekly ****
+                    </mat-error> -->
+
+<!-- 4 -->
+                    <label id="Segmentation">Segmentation</label>
+                    <mat-radio-group aria-label="Segmentation"  class="form-control" formControlName = "Segmentation"  required name="Segmentation">
+                        <mat-radio-button value="Y">True </mat-radio-button>
+                        <mat-radio-button value="N">False</mat-radio-button>
+                      </mat-radio-group>
+                    <!-- <mat-error *ngIf="mngClientPopUp.controls['Segmentation'].hasError('required')">
+                        **** Segmentation ****
+                    </mat-error> -->
+
+                   
+<!-- 5 -->
+                    <label id="PartnerRouter">Partner Router</label>
+                    <mat-radio-group aria-label="PartnerRouter"  class="form-control" formControlName = "PartnerRouter"  required name="PartnerRouter">
+                        <mat-radio-button value="Y">True </mat-radio-button>
+                        <mat-radio-button value="N">False</mat-radio-button>
+                      </mat-radio-group>
+                    <!-- <mat-error *ngIf="mngClientPopUp.controls['PartnerRouter'].hasError('required')">
+                        **** Partner Router ****
+                    </mat-error> -->
+<!-- 6 -->
+                    <label id="dataappend">DataAppend</label>
+                    <mat-radio-group aria-label="dataappend"  class="form-control" formControlName = "DataAppend"  required name="DataAppend">
+                        <mat-radio-button value="Y">True </mat-radio-button>
+                         <mat-radio-button value="N">False</mat-radio-button>
+                      </mat-radio-group>
+                    <!-- <mat-error *ngIf="mngClientPopUp.controls['DataAppend'].hasError('required')">
+                        **** DataAppend ****
+                    </mat-error> -->
+<!-- 7 -->
+                    <label id="free_routinglimit">Free Routing Limit</label>
+                    <input class="form-control form-control-sm " type="number" placeholder="Routing Limit" 
+                    name="FreeRoutingLimit" formControlName = "FreeRoutingLimit" (keydown)     = "countKeys($event)" required>
+                    <mat-error *ngIf="mngClientPopUp.controls['FreeRoutingLimit'].hasError('required')">
+                        **** Free Routing Limit ****
+                    </mat-error>
+
+                 
+<!-- 8 -->
+
+                    <label id="CRMisValid">CRM isValid</label>
+                    <mat-radio-group aria-label="CRMisValid"  class="form-control" formControlName = "CRMIsValid"  required name="CRMIsValid">
+                        <mat-radio-button value="true">True </mat-radio-button>
+                        <mat-radio-button value="false">False</mat-radio-button>
+                    </mat-radio-group>
+                    <!-- <mat-error *ngIf="mngClientPopUp.controls['CRMIsValid'].hasError('required')">
+                        **** CRM isValid ****
+                    </mat-error> -->
+
+
+
+<!-- 9 -->
+
+                    <label id="ExternalCRMSystem">CRM Type</label>
+                    <mat-form-field>
+                        <mat-label>Select an option</mat-label>
+                        <mat-select  name="ExternalCRMSystem" formControlName = "ExternalCRMSystem"  required  >
+                        <mat-option value="">Default</mat-option>
+                        <mat-option value="SFDC">SFDC</mat-option>
+                        <mat-option value="HubSpot">HubSpot</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <!-- <mat-error *ngIf="mngClientPopUp.controls['ExternalCRMSystem'].hasError('required')">
+                        **** CRM Type ****
+                    </mat-error> -->
+
+
+<!-- 10 -->
+
+
+                    <label id="MAIsValid">MA isValid</label>
+                    <mat-radio-group aria-label="MAIsValid"  class="form-control" formControlName = "MAIsValid"  required name="MAIsValid">
+                        <mat-radio-button value="true">True </mat-radio-button>
+                        <mat-radio-button value="false">False</mat-radio-button>
+                    </mat-radio-group>
+                    <!-- <mat-error *ngIf="mngClientPopUp.controls['MAIsValid'].hasError('required')">
+                        **** MA isValid ****
+                    </mat-error> -->
+
+
+<!-- 11 -->
+
+                    <label id="ExternalMASystem">MA Type</label>
+                    <mat-form-field>
+                        <mat-label>Select an option</mat-label>
+                        <mat-select  name="ExternalMASystem" formControlName = "ExternalMASystem"  required  >
+                            <mat-option value="">Default</mat-option>
+                            <mat-option value="Pardot">Pardot</mat-option>
+                            <mat-option value="Marketo">Marketo</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <!-- <mat-error *ngIf="mngClientPopUp.controls['ExternalMASystem'].hasError('required')">
+                        **** MA Type ****
+                    </mat-error> -->
+
+
+<!-- 12 -->
+
+                    <label id="MatchLevel">Match Level</label>
+                    <mat-form-field>
+                    <mat-label>Select an option</mat-label>
+                    <mat-select name="MatchLevel" formControlName = "MatchLevel"  required >
+                        <mat-option value="">Default</mat-option>
+                        <mat-option value = "Strict">Strict</mat-option>
+                        <mat-option value = "Moderate">Moderate</mat-option>
+                        <mat-option value = "Lenient">Lenient</mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                    <!-- <mat-error *ngIf="mngClientPopUp.controls['MatchLevel'].hasError('required')">
+                        **** >Match Level ****
+                    </mat-error> -->
+<!-- 13 -->
+
+                    <label id="SFDCIntegration">SFDC Integration</label>
+                    <mat-radio-group aria-label="SFDCIntegration"  class="form-control" formControlName = "SFDCIntegration"  required name="SFDCIntegration">
+                        <mat-radio-button value="Rest">Rest </mat-radio-button>
+                        <mat-radio-button value="Soap">Soap</mat-radio-button>
+                    </mat-radio-group>
+                    <!-- <mat-error *ngIf="mngClientPopUp.controls['SFDCIntegration'].hasError('required')">
+                        **** SFDC Integration ****
+                    </mat-error> -->
+<!-- 14 -->
+
+                    <label id="AssignmentBlockLimit">Assignment Block Limit</label>
+                    <input class="form-control form-control-sm " type="number" placeholder="Assignment block limit" 
+                    name="AssignmentBlockLimit" formControlName = "AssignmentBlockLimit" (keydown)     = "countKeys($event)" required>
+                    <mat-error *ngIf="mngClientPopUp.controls['AssignmentBlockLimit'].hasError('required')">
+                        **** Free Routing Limit ****
+                    </mat-error>
+
+<!-- 15 -->
+                    <label id="QuickRouterRunTimeInterval">Quick Router Frequency (Seconds)</label>
+                    <input class="form-control form-control-sm " type="number" placeholder="Quick Router Frequency" 
+                    name="QuickRouterRunTimeInterval" formControlName = "QuickRouterRunTimeInterval" (keydown)     = "countKeys($event)" required>
+                    <mat-error *ngIf="mngClientPopUp.controls['QuickRouterRunTimeInterval'].hasError('required')">
+                        **** Quick Router Frequency ****
+                    </mat-error>
+
+<!-- 16 -->
+
+                    <label id="RouterTimeInterval">Router Frequency (Minutes)</label>
+                    <input class="form-control form-control-sm " type="number" placeholder="Router Frequency" 
+                    name="RouterTimeInterval" formControlName = "RouterTimeInterval" (keydown)     = "countKeys($event)" required>
+                    <mat-error *ngIf="mngClientPopUp.controls['RouterTimeInterval'].hasError('required')">
+                        **** Router Frequency ****
+                    </mat-error>
+
+<!-- 17 -->
+                    <label id="SegmentationTimeInterval">Segmentation Time Interval(Minutes)</label>
+                    <input class="form-control form-control-sm " type="number" placeholder="Segmentation Time Interval" 
+                    name="SegmentationTimeInterval" formControlName = "SegmentationTimeInterval" (keydown)     = "countKeys($event)" required>
+                    <mat-error *ngIf="mngClientPopUp.controls['SegmentationTimeInterval'].hasError('required')">
+                        **** Router Frequency ****
+                    </mat-error>
+<!-- 18 -->
+                    <label id="ParterRouterTimeInterval">Segmentation Time Interval(Minutes)</label>
+                    <input class="form-control form-control-sm " type="number" placeholder="Segmentation Time Interval" 
+                    name="ParterRouterTimeInterval" formControlName = "ParterRouterTimeInterval" (keydown)     = "countKeys($event)" required>
+                    <mat-error *ngIf="mngClientPopUp.controls['ParterRouterTimeInterval'].hasError('required')">
+                        **** Router Frequency ****
+                    </mat-error>
+<!-- 19 read only-->
+                    <label id="OrgId">SFDC Organization ID</label>
+                    <input class="form-control form-control-sm " type="text" placeholder="SFDC Organization ID" 
+                    name="OrgId" formControlName = "OrgId"  required  [readonly] = "true">
+                    <mat-error *ngIf="mngClientPopUp.controls['OrgId'].hasError('required')" >
+                        **** SFDC Organization ID ****
+                    </mat-error>
+<!-- 20 read only-->
+                    <label id="NamespacePrefix">Namespace</label>
+                    <input class="form-control form-control-sm " type="text" placeholder="Namespace" 
+                    name="NamespacePrefix" formControlName = "NamespacePrefix"  required [readonly] = "true">
+                    <mat-error *ngIf="mngClientPopUp.controls['NamespacePrefix'].hasError('required')">
+                        **** Namespace ****
+                    </mat-error>
+<!-- 21 -->
+                    <mat-form-field>
+                        <mat-placeholder>Next QuickRouter Run Time</mat-placeholder>
+                        <mat-datetimepicker-toggle [for]="NextQuickRouterRunTs" matSuffix></mat-datetimepicker-toggle>
+                        <mat-datetimepicker
+                        #NextQuickRouterRunTs
+                        type="datetime"
+                        openOnFocus="true"
+                        timeInterval="5">
+                        </mat-datetimepicker>
+                        <input
+                        matInput
+                        formControlName="NextQuickRouterRunTs"
+                        [matDatetimepicker]="NextQuickRouterRunTs"
+                        required
+                        autocomplete="false"
+                        [readonly] = "true">
+                    </mat-form-field>
+
+<!-- 22 -->
+                    <mat-form-field>
+                        <mat-placeholder>Next RouterRun Time</mat-placeholder>
+                        <mat-datetimepicker-toggle [for]="NextRouterRunTs" matSuffix></mat-datetimepicker-toggle>
+                        <mat-datetimepicker
+                        #NextRouterRunTs
+                        type="datetime"
+                        openOnFocus="true"
+                        timeInterval="5">
+                        </mat-datetimepicker>
+                        <input
+                        matInput
+                        formControlName="NextRouterRunTs"
+                        [matDatetimepicker]="NextRouterRunTs"
+                        required
+                        autocomplete="false"
+                        [readonly] = "true">
+                    </mat-form-field>
+
+
+<!-- 23 -->
+                    <mat-form-field>
+                        <mat-placeholder>Next Segmentation Run Time</mat-placeholder>
+                        <mat-datetimepicker-toggle [for]="NextSegmentationRunTs" matSuffix></mat-datetimepicker-toggle>
+                        <mat-datetimepicker
+                        #NextSegmentationRunTs
+                        type="datetime"
+                        openOnFocus="true"
+                        timeInterval="5">
+                        </mat-datetimepicker>
+                        <input
+                        matInput
+                        formControlName="NextSegmentationRunTs"
+                        [matDatetimepicker]="NextSegmentationRunTs"
+                        required
+                        autocomplete="false"
+                        [readonly] = "true">
+                    </mat-form-field>
+<!-- 24 -->
+                    <mat-form-field>
+                        <mat-placeholder>Next Partner RouterRun Time</mat-placeholder>
+                        <mat-datetimepicker-toggle [for]="NextPartnerRouterRunTs" matSuffix></mat-datetimepicker-toggle>
+                        <mat-datetimepicker
+                        #NextPartnerRouterRunTs
+                        type="datetime"
+                        openOnFocus="true"
+                        timeInterval="5">
+                        </mat-datetimepicker>
+                        <input
+                        matInput
+                        formControlName="NextPartnerRouterRunTs"
+                        [matDatetimepicker]="NextPartnerRouterRunTs"
+                        required
+                        autocomplete="false"
+                        [readonly] = "true">
+                    </mat-form-field>
+<!-- 25 -->
+                    <label id="SendAlertMail">Send Job Stuck Mail</label>
+                    <mat-radio-group aria-label="SendAlertMail"  class="form-control" formControlName = "SendAlertMail"  required name="SendAlertMail">
+                        <mat-radio-button value="Y">Yes </mat-radio-button>
+                        <mat-radio-button value="N" >No</mat-radio-button>
+                    </mat-radio-group>
+                    <!-- <mat-error *ngIf="mngClientPopUp.controls['SendAlertMail'].hasError('required')">
+                        **** Send Job Stuck Mail ****
+                    </mat-error> -->
+<!-- 26 -->
+                    <label id="AppVersion">Auto Conversion</label>
+                    <mat-radio-group aria-label="AppVersion"  class="form-control" formControlName = "AppVersion"  required name="AppVersion">
+                        <mat-radio-button value="Y">Yes </mat-radio-button>
+                        <mat-radio-button value="N" >No</mat-radio-button>
+                    </mat-radio-group>
+                    <!-- <mat-error *ngIf="mngClientPopUp.controls['AppVersion'].hasError('required')">
+                        **** Auto Conversion ****
+                    </mat-error> -->
+<!-- 27 -->
+                    <label id="LeadIndex_1">Lead Index Name</label>
+                    <input class="form-control form-control-sm " type="text" placeholder="Routing Limit" 
+                    name="LeadIndex_1" formControlName = "LeadIndex_1"  required  [readonly] = "true">
+                    <mat-error *ngIf="mngClientPopUp.controls['LeadIndex_1'].hasError('required')">
+                        **** Lead Index Name ****
+                    </mat-error>
+<!-- 28 -->
+                    <label id="AccountIndex_1">Account Index Name</label>
+                    <input class="form-control form-control-sm " type="text" placeholder="Routing Limit" 
+                    name="AccountIndex_1" formControlName = "AccountIndex_1"  required  [readonly] = "true">
+                    <mat-error *ngIf="mngClientPopUp.controls['AccountIndex_1'].hasError('required')">
+                        **** >Account Index Name ****
+                    </mat-error>
+<!-- 29 -->
+                    <label id="UseCustomRule">Use Custom Rule</label>
+                    <mat-radio-group aria-label="UseCustomRule"  class="form-control" formControlName = "UseCustomRule"  required name="UseCustomRule">
+                        <mat-radio-button value="Y">Yes </mat-radio-button>
+                        <mat-radio-button value="N" >No</mat-radio-button>
+                    </mat-radio-group>
+                    <!-- <mat-error *ngIf="mngClientPopUp.controls['UseCustomRule'].hasError('required')">
+                        **** Use Custom Rule ****
+                    </mat-error> -->
+<!-- 30 -->
+                    <label id="IsMALeadConfigure">MA Configure</label>
+                    <mat-radio-group aria-label="IsMALeadConfigure"  class="form-control" formControlName = "IsMALeadConfigure"  required name="IsMALeadConfigure">
+                        <mat-radio-button value="1">Yes </mat-radio-button>
+                        <mat-radio-button value="0"  >No</mat-radio-button>
+                    </mat-radio-group>
+                    <!-- <mat-error *ngIf="mngClientPopUp.controls['IsMALeadConfigure'].hasError('required')">
+                        **** MA Configure ****
+                    </mat-error> -->
+<!-- 31 -->
+                    <label id="IsPartnerConfigure">Partner Configured</label>
+                    <mat-radio-group aria-label="IsPartnerConfigure"  class="form-control" formControlName = "IsPartnerConfigure"  required name="IsPartnerConfigure">
+                        <mat-radio-button value="1">Yes </mat-radio-button>
+                        <mat-radio-button value="0"  >No</mat-radio-button>
+                    </mat-radio-group>
+                    <!-- <mat-error *ngIf="mngClientPopUp.controls['IsPartnerConfigure'].hasError('required')">
+                        **** Partner Configured ****
+                    </mat-error> -->
+<!-- 32 -->
+                    <mat-form-field>
+                        <mat-placeholder>Contract Expiration Date</mat-placeholder>
+                        <mat-datetimepicker-toggle [for]="ContractExpirationDate" matSuffix></mat-datetimepicker-toggle>
+                        <mat-datetimepicker
+                        #ContractExpirationDate
+                        type="datetime"
+                        openOnFocus="true"
+                        timeInterval="5">
+                        </mat-datetimepicker>
+                        <input
+                        matInput
+                        formControlName="ContractExpirationDate"
+                        [matDatetimepicker]="ContractExpirationDate"
+                        required
+                        autocomplete="false"
+                        [readonly] = "true">
+                    </mat-form-field>
+<!-- 2 -->
+<!-- 2 -->
+<!-- 2 -->
+<!-- 2 -->
+<!-- 2 -->
+<!-- 2 -->
+<!-- 2 -->
+<!-- 2 -->
+
+                
+
+ 
+            </div>
+           
+       
+    </mat-dialog-content>
+    <mat-dialog-actions align = "end" class = "mt-2">
+        <button mat-raised-button mat-dialog-close>Cancel</button>
+        <button mat-raised-button color = "primary" type="submit" class="mr-2">Update</button>
+        <!-- <button mat-raised-button color = "primary" >Download</button> -->
+
+        <!-- csv download single record -->
+        <app-download-csv 
+        [csvData]      = "csvData"
+        [csvHeader]    = "csvHeader"
+        [title]        = "title"
+        [buttonName]   = "buttonName"
+        [fileName]     = "fileName"
+        [isDownloaded] = "isDownloaded"
+        (click)        = "download()"
+      ></app-download-csv>
+
+    </mat-dialog-actions>
+</form>
+</div>

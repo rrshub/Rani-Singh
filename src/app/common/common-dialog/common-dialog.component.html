@@ -1,0 +1,62 @@
+<div *ngIf="data.dialogtype == 'NEW_OBJECT' ||data.dialogtype == 'NEW_FOLDER'">
+<div class="header dailog-header">
+    <h1 mat-dialog-title>{{ data.title  }}</h1>
+</div>
+<mat-dialog-content>
+    
+    <!-- <p class="dialog-message">{{ data.message }}</p> -->
+    <div class="form-group mt-3">
+        <label class="d-flex justify-content-between"><span>Name</span> <span>0/50</span></label>
+    <input id="menuname" type="text" class=" form-control"  [(ngModel)]="this.menuName" />
+    
+</div>
+<div class="form-group">
+    <label class="d-flex justify-content-between"><span>Discription</span> <span>0/100</span></label>
+  
+<textarea id="menudesc"  class="form-control"  [(ngModel)]="this.menuDesc"></textarea>
+</div>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mt-2">
+    <button mat-raised-button  (click)="cancel()">{{ data.cancelText }}</button>
+    <button mat-raised-button color="primary" (click)="confirm()">{{ data.confirmText }}</button>
+</mat-dialog-actions>
+</div>
+
+<div *ngIf="data.dialogtype == 'DELETE'">
+    <mat-dialog-content class=" text-center">
+        <p class="dialog-message">{{ data.message }}</p>
+        <p class="dialog-message">{{ data.title }}</p>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center" class="mt-2">
+        <button mat-raised-button  (click)="cancel()">{{ data.cancelText }}</button>
+        <button mat-raised-button color="warn" (click)="confirm()">{{ data.confirmText }}</button>
+    </mat-dialog-actions>
+</div>
+
+<div *ngIf="data.dialogtype == 'RENAME'">
+    <div class="header dailog-header">
+        <h1 mat-dialog-title>Rename {{ data.title }}</h1>
+    </div>
+    <mat-dialog-content>
+        <div class=" form-group mt-3">
+            <input id="menuname" class="form-control" type="text" [(ngModel)]="this.menuName" />
+        </div>
+       
+    </mat-dialog-content>
+    <mat-dialog-actions align="end" class="mt-2">
+        <button mat-raised-button  (click)="cancel()">{{ data.cancelText }}</button>
+        <button mat-raised-button color="primary" (click)="confirm()">{{ data.confirmText }}</button>
+    </mat-dialog-actions>
+</div>
+
+<div *ngIf="data.dialogtype == 'APPROVED'">
+    <mat-dialog-content class=" text-center">
+        <p class="dialog-message">{{ data.message }}</p>
+        <p class="dialog-message">{{ data.title }}</p>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center" class="mt-2">
+        <button mat-raised-button  (click)="cancel()">{{ data.cancelText }}</button>
+        <button mat-raised-button color="primary" (click)="confirm()">{{ data.confirmText }}</button>
+    </mat-dialog-actions>
+</div>
+

@@ -1,0 +1,173 @@
+// .example-container {
+//     position: absolute;
+//     top: 0;
+//     bottom: 0;
+//     left: 0;
+//     right: 0;
+//     background: #eee;
+//   }
+$IconUrl:'src/assets/icons';
+$bg-split:#cecece;
+.example-spacer {
+  flex: 1 1 auto;
+}
+.mat-toolbar.mat-primary {
+  background: #00587f;
+  color: white;
+  height: 56px;
+}
+.mat-toolbar{
+  .user-text{    font-size: 15px;
+    font-weight: 400;} 
+  a{ color: #fff;
+  &:hover{
+    color: #fff; text-decoration: underline
+  }
+}
+
+  .user-text-id {
+    background: #024767;
+    padding: 0 20px;
+    line-height: 25px;
+    border: 1px dashed rgba(97, 206, 255, 0.21);
+}
+}
+
+
+.mat-toolbar-multiple-rows {
+  min-height: 56px;
+  .mat-toolbar-row{padding: 0 10px;}
+}
+.main-canvas {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 56px;
+  width: 100%;
+  bottom: 0;
+  .right-split-area{background: $bg-split}
+}
+.leftsearchpanel{
+   position: relative;
+  input{width: 100%;
+    height: 42px;
+    border: none;
+    outline: 0;
+    background: #d6f4ff;
+    padding: 10px 52px 10px 15px;
+   
+    margin-bottom: 8px;}
+  mat-icon{position: absolute;
+    right:8px;
+    top:10px;
+    color: #ff60009e;}
+.close-button{position: absolute;
+  right: 0;
+  background: #d6f4ff;
+  top: 4px;}
+}
+::ng-deep .as-split-gutter{border-left: 1px solid #c3c2c2;   &:hover{
+  background: #9c9c9c !important;
+}
+}
+::ng-deep .as-horizontal{
+  .as-split-gutter{
+ 
+    .as-split-gutter-icon{
+      background-image:url(#{$IconUrl}/download.png) !important;
+    }
+  }
+}
+::ng-deep .context-menu-panel {
+  min-width: 264px !important;
+  max-width: 300px;
+  .mat-menu-item{    line-height: 30px;
+    height: 30px;
+    .mat-icon {
+      margin-right:5px; font-size: 18px; line-height:16px; width: 18px; height: 18px;}
+    }
+  
+  .mat-menu-item:hover:not([disabled]){
+    background:#d6f4ff;
+  }}
+
+
+
+///tree menu icon//
+.treeicons{width:14px;
+  height:16px;display: inline-block;
+  background-size: 14px !important; background-repeat: no-repeat !important; margin-right: 2px; margin-top: 0;}
+
+
+.SalesTeam.level-0{
+  background: url(#{$IconUrl}/salesteam.png);
+}
+.IsFolder-1{
+  background: url(#{$IconUrl}/folder.png) no-repeat !important; background-size: 14px !important; 
+}
+.PartnerGroup.level-1{
+ 
+  background: url(#{$IconUrl}/partnergroup.png);
+}
+.PartnerGroup{
+ 
+  background: url(#{$IconUrl}/partnericon.png);
+}
+.PartnerGroup.IsApproved-0.IsObjectEdited-1{ background: url(#{$IconUrl}/partnergroupapprove.png);}
+.PartnerGroup.IsApproved-1{
+  background: url(#{$IconUrl}/partnergroupapprove.png);
+}
+.SalesTeam.level-1{
+  background: url(#{$IconUrl}/roundrobin.png);
+}
+.SalesTeam{
+  background: url(#{$IconUrl}/roundrobin.png);
+}
+.SalesTeam.IsApproved-0.IsObjectEdited-1{ background: url(#{$IconUrl}/roundrobinapprove.png);}
+.SalesTeam.IsApproved-1{background: url(#{$IconUrl}/roundrobinapprove.png);}
+.SalesRepISRMapping{background: url(#{$IconUrl}/saleisrmapping.png);}
+.SRAccountMapping{background: url(#{$IconUrl}/sale-accountmap.png);}
+.WeightedSalesTeam.level-1{background: url(#{$IconUrl}/weightedsales.png);}
+.WeightedSalesTeam{background: url(#{$IconUrl}/weightedsingle.png);}
+.WeightedSalesTeam.IsApproved-0.IsObjectEdited-1{background: url(#{$IconUrl}/weightedsingleapprove.png);}
+.WeightedSalesTeam.IsApproved-1{background: url(#{$IconUrl}/weightedsingleapprove.png);}
+.DataDictionary{background: url(#{$IconUrl}/ddictionary.png);}
+.AccountList.level-1{background: url(#{$IconUrl}/account-list.png);}
+.AccountList{background: url(#{$IconUrl}/account-list.png);  background-size: 12px !important; width: 12px;}
+.AccountList.IsApproved-0.IsObjectEdited-1{background: url(#{$IconUrl}/account-list-approve.png);  background-size: 12px !important;}
+.AccountList.IsApproved-1{background: url(#{$IconUrl}/account-list-approve.png);  background-size: 12px !important;}
+.AccountStatus.level-1{background: url(#{$IconUrl}/lead.png);}
+.AccountStatus{background: url(#{$IconUrl}/lead.png);}
+.AccountStatus.IsApproved-0.IsObjectEdited-1{background: url(#{$IconUrl}/lead1.png);}
+.AccountStatus.IsApproved-1{background: url(#{$IconUrl}/lead1.png);}
+.MarketSegment.level-1{background: url(#{$IconUrl}/market-segment.png);}
+.MarketSegment{background: url(#{$IconUrl}/market-segment.png);}
+.MarketSegment.IsApproved-0.IsObjectEdited-1{background: url(#{$IconUrl}/market-segment-app.png);}
+.MarketSegment.IsApproved-1{background: url(#{$IconUrl}/market-segment-app.png);}
+.SystemDataDictionary.level-1{background: url(#{$IconUrl}/SystemDataDictionary.png); }
+.SystemDataDictionary.level-2{background: url(#{$IconUrl}/SystemDataDictionary.png); }
+.TLSegment{background: url(#{$IconUrl}/pie-chart-outline.png); }
+.TLSegment.IsApproved-0.IsObjectEdited-1,.TLSegment.IsApproved-1.IsObjectEdited-0{background: url(#{$IconUrl}/pie-chart-outlineu-approve.png); }
+.MLSegment{background: url(#{$IconUrl}/market-leadsegment.png); }
+.MLSegment.IsApproved-0.IsObjectEdited-1,.TLSegment.IsApproved-1.IsObjectEdited-0{background: url(#{$IconUrl}/market-leadsegment.png); }
+.PartnerGroupLead{background: url(#{$IconUrl}/partner-router.png); }
+.PartnerGroupLead.IsApproved-0.IsObjectEdited-1,.PartnerGroupLead.IsApproved-1.IsObjectEdited-0{background: url(#{$IconUrl}/partner-routerapprove.png); }
+.PartnerGroupLead.LeadRouterStatus-1{background: url(#{$IconUrl}/partner-routeractive.png); }
+.LeadRouter{background: url(#{$IconUrl}/lead-router.png); }
+.LeadRouter.IsApproved-0.IsObjectEdited-1,.LeadRouter.IsApproved-1.IsObjectEdited-0{background: url(#{$IconUrl}/lead-routeractive.png); }
+.LeadRouter.LeadRouterStatus-1{background: url(#{$IconUrl}/lead-routeractive2.png); }
+.CustomReport{background: url(#{$IconUrl}/custom-report.png);background-size: 12px !important;width: 12px; }
+.Administration{background: url(#{$IconUrl}/administration.png);background-size: 12px !important;width: 12px; }
+.Analytics{background: url(#{$IconUrl}/analytics.png);background-size: 12px !important;width: 12px; }
+.LeadDetRpt{background: url(#{$IconUrl}/lead-report.png);background-size: 12px !important;width: 12px; }
+.LeadRoutingRpt{background: url(#{$IconUrl}/lead-router-report.png);background-size: 12px !important;width: 12px;}
+.MainDashBoard{background: url(#{$IconUrl}/maindashboard.png);background-size: 12px !important;width: 12px;}
+.NetNewAccRpt{background: url(#{$IconUrl}/NetNewAccRpt.png);background-size: 12px !important;width: 12px;}
+.AutoConversion{background: url(#{$IconUrl}/refresh-page-option.png);background-size: 12px !important;width: 12px;}
+.CpyActDataLead{background: url(#{$IconUrl}/data-copy.png);background-size: 12px !important;width: 12px;}
+.Maintenance{background: url(#{$IconUrl}/maintenance.png);background-size: 12px !important;width: 12px;}
+.Preference{background: url(#{$IconUrl}/preferences.png);background-size: 12px !important;width: 12px;}
+.TieBreaker{background: url(#{$IconUrl}/tribreaker.png);background-size: 12px !important;width: 12px;}
+.UserAccess{background: url(#{$IconUrl}/userandaccess.png);background-size: 12px !important;width: 12px;}
+
+

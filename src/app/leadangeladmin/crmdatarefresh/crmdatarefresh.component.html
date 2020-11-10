@@ -1,0 +1,85 @@
+<mat-toolbar class="toolbarheader">
+    <h4>CRM Data Refresh Details</h4>
+     <span class="spacer"></span>
+    <button mat-button mat-raised-button color="primary" (click)="addCrmDailog(item,'add_crm_dialog_users')">Add</button>
+    <div class="comman-filter"><input type="text"> <mat-icon>filter_alt</mat-icon> </div>
+</mat-toolbar>
+
+<div class="p-3">
+<table mat-table [dataSource]="dataSource" matSort class="table-striped">
+
+    
+    <ng-container matColumnDef="rowNumber">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> S NO </th>
+      <td width="100" mat-cell *matCellDef="let element; let i=index" > {{i+1}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="clientId">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Client ID </th>
+      <td width="100" mat-cell *matCellDef="let element" > {{element.ClientId}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="action">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Action </th>
+      <td width="100" mat-cell *matCellDef="let element" > {{element.Action}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="externalSystemType">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> External System Type </th>
+      <td width="100" mat-cell *matCellDef="let element"  class="text-center" > {{element.ExternalSystemType}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="filterCondition">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Filter Condition </th>
+      <td width="100" mat-cell *matCellDef="let element"> {{element.FilterCondition}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createDate">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef > Create Date </th>
+      <td width="100" mat-cell *matCellDef="let element"> {{element.Createdts}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="startedDate">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef > Started Date </th>
+      <td width="100" mat-cell *matCellDef="let element" > {{element.Startedts}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="completeDate">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef > Complete Date </th>
+      <td width="100" mat-cell *matCellDef="let element" > {{element.Completedts}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Status </th>
+      <td width="100" mat-cell *matCellDef="let element" > {{element.Status}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Operation">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Operation </th>
+      <td width="100" mat-cell *matCellDef="let element" class="text-center" >
+        <button color="orange" mat-raised-button [matMenuTriggerFor]="action">Action <mat-icon>arrow_drop_down</mat-icon> </button>
+        <mat-menu #action="matMenu">
+          <button mat-menu-item (click)="addCrmDailog(element,'edit_crm_dialog_users')" >
+            <mat-icon color="successtext">edit</mat-icon>
+            <span>Edit</span>
+          </button>
+       
+          <button mat-menu-item (click)="addCrmDailog(element,'execute_crm_dialog_users')" >
+            <mat-icon color="primary">published_with_changes</mat-icon>
+            <span>Execute</span>
+          </button>
+          
+          <button mat-menu-item (click)="addCrmDailog(element,'delete_crm_dialog_users')" >
+            <mat-icon color="warn">delete</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  
+</div>
